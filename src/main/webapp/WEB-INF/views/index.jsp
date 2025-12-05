@@ -117,22 +117,40 @@
     </symbol>
 </svg>
 <div class="col-lg-8 mx-auto p-4 py-md-5">
-    <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-        <a
-                href="/"
-                class="d-flex align-items-center text-body-emphasis text-decoration-none"
-        >
-            <svg
-                    class="bi me-2"
-                    width="40"
-                    height="32"
-                    role="img"
-                    aria-label="Bootstrap"
+    <header
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
+    >
+        <div class="col-md-3 mb-2 mb-md-0">
+            <a
+                    href="/"
+                    class="d-inline-flex link-body-emphasis text-decoration-none"
             >
-                <use xlink:href="${pageContext.request.contextPath}/resources/image/lightning.svg"></use>
-            </svg>
-            <span class="fs-4">스따또 template</span>
-        </a>
+                <svg
+                        class="bi"
+                        width="40"
+                        height="32"
+                        role="img"
+                        aria-label="Bootstrap"
+                >
+                    <use xlink:href="${pageContext.request.contextPath}/resources/image/lightning.svg"></use>
+                </svg>
+            </a>
+        </div>
+        <ul
+                class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
+        >
+            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+            <li><a href="#" class="nav-link px-2">Features</a></li>
+            <li><a href="#" class="nav-link px-2">Pricing</a></li>
+            <li><a href="#" class="nav-link px-2">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2">About</a></li>
+        </ul>
+        <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-primary me-2">
+                Login
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal", data-bs-target="#modalSignUp">Sign-up</button>
+        </div>
     </header>
     <main>
         <h1 class="text-body-emphasis">Get started with Bootstrap</h1>
@@ -156,66 +174,85 @@
                     source projects that you can quickly duplicate to a new GitHub
                     repository.
                 </p>
-                <ul class="list-unstyled ps-0">
-                    <li>
-                        <a
-                                class="icon-link mb-1"
-                                href="https://github.com/twbs/examples/tree/main/icons-font"
-                                rel="noopener"
-                                target="_blank"
-                        >
-                            <svg class="bi" width="16" height="16" aria-hidden="true">
-                                <use xlink:href="#arrow-right-circle"></use>
-                            </svg>
-                            Bootstrap npm starter
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                                class="icon-link mb-1"
-                                href="https://github.com/twbs/examples/tree/main/parcel"
-                                rel="noopener"
-                                target="_blank"
-                        >
-                            <svg class="bi" width="16" height="16" aria-hidden="true">
-                                <use xlink:href="#arrow-right-circle"></use>
-                            </svg>
-                            Bootstrap Parcel starter
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                                class="icon-link mb-1"
-                                href="https://github.com/twbs/examples/tree/main/vite"
-                                rel="noopener"
-                                target="_blank"
-                        >
-                            <svg class="bi" width="16" height="16" aria-hidden="true">
-                                <use xlink:href="#arrow-right-circle"></use>
-                            </svg>
-                            Bootstrap Vite starter
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                                class="icon-link mb-1"
-                                href="https://github.com/twbs/examples/tree/main/webpack"
-                                rel="noopener"
-                                target="_blank"
-                        >
-                            <svg class="bi" width="16" height="16" aria-hidden="true">
-                                <use xlink:href="#arrow-right-circle"></use>
-                            </svg>
-                            Bootstrap Webpack starter
-                        </a>
-                    </li>
-                </ul>
             </div>
         </div>
     </main>
     <footer class="pt-5 my-5 text-body-secondary border-top">
         Created by the Bootstrap team &middot; &copy; 2025
     </footer>
+</div>
+<div
+        class="modal fade"
+        tabindex="-1"
+        role="dialog"
+        id="modalSignUp"
+        aria-hidden="true"
+        data-bs-backdrop="static"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body p-5 pt-0">
+                <form class="">
+                    <div class="form-floating mb-3">
+                        <input
+                                type="email"
+                                class="form-control rounded-3"
+                                id="floatingInput"
+                                placeholder="name@example.com"
+                        />
+                        <label for="floatingInput">Email address</label>
+                    </div>
+                    <button
+                            class="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
+                            type="submit"
+                    >
+                        Sign up
+                    </button>
+                    <small class="text-body-secondary"
+                    >가입할 이메일을 입력해 주세요.</small
+                    >
+                    <hr class="my-4" />
+                    <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+                    <button
+                            class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
+                            type="submit"
+                    >
+                        <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+                            <use xlink:href="#google"></use>
+                        </svg>
+                        Sign up with Google
+                    </button>
+                    <button
+                            class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3"
+                            type="submit"
+                    >
+                        <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+                            <use xlink:href="#facebook"></use>
+                        </svg>
+                        Sign up with Facebook
+                    </button>
+                    <button
+                            class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
+                            type="submit"
+                    >
+                        <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+                            <use xlink:href="#github"></use>
+                        </svg>
+                        Sign up with GitHub
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <script
         src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"

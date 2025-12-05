@@ -8,7 +8,7 @@
             content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
     />
     <meta name="generator" content="Astro v5.13.2" />
-    <title>우리는 챔피언</title>
+    <title>Let's run together</title>
     <link
             rel="canonical"
             href="https://getbootstrap.com/docs/5.3/examples/starter-template/"
