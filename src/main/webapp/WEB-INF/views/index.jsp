@@ -192,7 +192,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
-                <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
+                <h1 class="fw-bold mb-0 fs-2">회원 가입을 해주세요</h1>
                 <button
                         type="button"
                         class="btn-close"
@@ -206,22 +206,23 @@
                         <input
                                 type="email"
                                 class="form-control rounded-3"
-                                id="floatingInput"
+                                id="emailInput"
                                 placeholder="name@example.com"
                         />
                         <label for="floatingInput">Email address</label>
                     </div>
+                    <small class="text-body-secondary d-block mt-1 mb-3"
+                    >가입할 이메일을 입력해 주세요.</small
+                    >
                     <button
                             class="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
-                            type="submit"
+                            type="button"
+                            id="signUpButon"
                     >
                         Sign up
                     </button>
-                    <small class="text-body-secondary"
-                    >가입할 이메일을 입력해 주세요.</small
-                    >
                     <hr class="my-4" />
-                    <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+                    <h2 class="fs-5 fw-bold mb-3">추후 수정</h2>
                     <button
                             class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
                             type="submit"
@@ -258,6 +259,35 @@
         src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"
         class="astro-vvvwv3sm"
 ></script>
+<script>
+window.onload = function () {
+    const signUpBtn = document.getElementById("signUpButon");
+    signUpBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        checkEmail();
+    })
+}
+
+checkEmail = function () {
+    const email = document.getElementById("emailInput").value;
+    fetch("/account/check-email", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: new URLSearchParams({ email })
+    })
+        .then(res => res.json())
+        .then((data) => {
+        if(data.exists) {
+            alert("있음!");
+        }else {
+            alert("없음");
+        }
+    })
+
+}
+</script>
 </body>
 </html>
 
