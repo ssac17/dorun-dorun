@@ -211,11 +211,14 @@
                         />
                         <label for="floatingInput">Email address</label>
                     </div>
+                    <div id="signUpAlert">
+
+                    </div>
                     <small class="text-body-secondary d-block mt-1 mb-3"
                     >가입할 이메일을 입력해 주세요.</small
                     >
                     <button
-                            class="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
+                            class="w-100 mb-2 btn btn-lg rounded-3 btn-primary alert-dismissible"
                             type="button"
                             id="signUpButon"
                     >
@@ -270,17 +273,26 @@ window.onload = function () {
 
 checkEmail = function () {
     const email = document.getElementById("emailInput").value;
-    fetch("/account/check-email", {
+    const contextPath = "${pageContext.request.contextPath}";  // ← 이 줄 추가
+
+    fetch(contextPath + "/account/check-email", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "Accept": "application/json"
         },
         body: new URLSearchParams({ email })
     })
         .then(res => res.json())
         .then((data) => {
-        if(data.exists) {
-            alert("있음!");
+            const alertContainer = document.getElementById("signUpAlert");
+            if(data.exists) {
+            alertContainer.innerHTML = `
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        이미 가입된 이메일입니다.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `
         }else {
             alert("없음");
         }

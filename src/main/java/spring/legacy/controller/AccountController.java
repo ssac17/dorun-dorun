@@ -23,10 +23,6 @@ public class AccountController {
     @PostMapping("/check-email")
     @ResponseBody
     public Map<String, Boolean> checkEmail(@RequestParam("email") String email) {
-        //System.out.println("email = " + email);
-        boolean exists = accountService.isEmailExists(email);
-        System.out.println("exists= " + exists);
-        return Map.of("exists", false);
+        return Map.of("exists", accountService.isEmailExists(email));
     }
-
 }
