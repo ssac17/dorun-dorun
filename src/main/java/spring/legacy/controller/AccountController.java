@@ -1,10 +1,7 @@
 package spring.legacy.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import spring.legacy.service.AccountService;
 
 import java.util.Map;
@@ -24,5 +21,10 @@ public class AccountController {
     @ResponseBody
     public Map<String, Boolean> checkEmail(@RequestParam("email") String email) {
         return Map.of("exists", accountService.isEmailExists(email));
+    }
+
+    @GetMapping("sign-up")
+    public String signUpPage() {
+        return "account/signUp";
     }
 }

@@ -231,7 +231,7 @@
                             type="submit"
                     >
                         <svg class="bi me-1" width="16" height="16" aria-hidden="true">
-                            <use xlink:href="#google"></use>
+                            <use xlink:href="#"></use>
                         </svg>
                         Sign up with Google
                     </button>
@@ -240,7 +240,7 @@
                             type="submit"
                     >
                         <svg class="bi me-1" width="16" height="16" aria-hidden="true">
-                            <use xlink:href="#facebook"></use>
+                            <use xlink:href="#"></use>
                         </svg>
                         Sign up with Facebook
                     </button>
@@ -249,7 +249,7 @@
                             type="submit"
                     >
                         <svg class="bi me-1" width="16" height="16" aria-hidden="true">
-                            <use xlink:href="#github"></use>
+                            <use xlink:href="#"></use>
                         </svg>
                         Sign up with GitHub
                     </button>
@@ -294,9 +294,13 @@ checkEmail = function () {
                 </div>
             `
         }else {
-            alert("없음");
+            //회원가입 페이지 이동
+            location.href = contextPath + "account/sign-up";
         }
     })
+}
+
+goSignUp = function () {
 
 }
 </script>

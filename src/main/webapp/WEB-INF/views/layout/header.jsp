@@ -14,7 +14,7 @@
             href="https://getbootstrap.com/docs/5.3/examples/starter-template/"
     />
     <script src="${pageContext.request.contextPath}/resources/js/color-modes.js"></script>
-    <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#712cf9" />
     <style>
         .bd-placeholder-img {
