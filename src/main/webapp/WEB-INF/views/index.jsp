@@ -273,7 +273,7 @@ window.onload = function () {
 
 checkEmail = function () {
     const email = document.getElementById("emailInput").value;
-    const contextPath = "${pageContext.request.contextPath}";  // ← 이 줄 추가
+    const contextPath = "${pageContext.request.contextPath}";
 
     fetch(contextPath + "/account/check-email", {
         method: "POST",
@@ -294,8 +294,8 @@ checkEmail = function () {
                 </div>
             `
         }else {
-            //회원가입 페이지 이동
-            location.href = contextPath + "account/sign-up";
+            //회원가입 페이지 이동, 이메일 값 넘겨주기
+            location.href = contextPath + "account/sign-up?email=" + encodeURIComponent(email);
         }
     })
 }

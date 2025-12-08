@@ -22,80 +22,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#712cf9" />
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap/checkout.css" rel="stylesheet" />
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-        .b-example-divider {
-            width: 100%;
-            height: 3rem;
-            background-color: #0000001a;
-            border: solid rgba(0, 0, 0, 0.15);
-            border-width: 1px 0;
-            box-shadow:
-                    inset 0 0.5em 1.5em #0000001a,
-                    inset 0 0.125em 0.5em #00000026;
-        }
-        .b-example-vr {
-            flex-shrink: 0;
-            width: 1.5rem;
-            height: 100vh;
-        }
-        .bi {
-            vertical-align: -0.125em;
-            fill: currentColor;
-        }
-        .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-        }
-        .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
-        .btn-bd-primary {
-            --bd-violet-bg: #712cf9;
-            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-            --bs-btn-font-weight: 600;
-            --bs-btn-color: var(--bs-white);
-            --bs-btn-bg: var(--bd-violet-bg);
-            --bs-btn-border-color: var(--bd-violet-bg);
-            --bs-btn-hover-color: var(--bs-white);
-            --bs-btn-hover-bg: #6528e0;
-            --bs-btn-hover-border-color: #6528e0;
-            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-            --bs-btn-active-color: var(--bs-btn-hover-color);
-            --bs-btn-active-bg: #5a23c8;
-            --bs-btn-active-border-color: #5a23c8;
-        }
-        .bd-mode-toggle {
-            z-index: 1500;
-        }
-        .bd-mode-toggle .bi {
-            width: 1em;
-            height: 1em;
-        }
-        .bd-mode-toggle .dropdown-menu .active .bi {
-            display: block !important;
-        }
-    </style>
+    <link href="${pageContext.request.contextPath}/resources/css/page/signUp.css" rel="stylesheet">
 </head>
 <body class="bg-body-tertiary">
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -196,175 +123,154 @@
 <div class="container">
     <main>
         <div class="py-5 text-center">
-            <img
-                    class="d-block mx-auto mb-4"
-                    src="${pageContext.request.contextPath}/resources/image/bootstrap-logo.svg"
-                    alt=""
-                    width="72"
-                    height="57"
-            />
-            <h1 class="h2">sign up form</h1>
+            <a href="/">
+                <img
+                        class="d-block mx-auto mb-4"
+                        src="${pageContext.request.contextPath}/resources/image/bootstrap-logo.svg"
+                        alt=""
+                        width="72"
+                        height="57"
+                />
+            </a>
+            <h1 class="h2">SIGN UP</h1>
             <p class="lead">
                 회원 가입 페이지 입니다!!
             </p>
         </div>
         <div class="row g-5">
-            <div class="col-md-7 col-lg-8">
+            <div class="col-md-7 col-lg-8 mx-auto">
                 <h4 class="mb-3">어떤 문구가 들어가는게 좋을까?</h4>
                 <form class="needs-validation" novalidate>
                     <div class="row g-3">
-                        <div class="col-sm-6">
-                        </div>
+                        <!-- 이름 -->
                         <div class="col-12">
-                            <label for="username" class="form-label">Username</label>
-                            <div class="input-group has-validation">
-                                <span class="input-group-text">@</span>
-                                <input
-                                        type="text"
-                                        class="form-control"
-                                        id="userName"
-                                        placeholder="Username"
-                                        required
-                                />
-                                <div class="invalid-feedback">
-                                    Your username is required.
+                            <div class="row align-items-center">
+                                <div class="col-3 text-end">
+                                    <label for="userName" class="col-form-label">Name</label>
+                                </div>
+                                <div class="col-9">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="userName"
+                                            placeholder="John"
+                                            required
+                                    />
+                                    <div class="invalid-feedback">
+                                        Your name is required.
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- 이메일 -->
                         <div class="col-12">
-                            <label for="email" class="form-label"
-                            >Email
-                                <span class="text-body-secondary">(Optional)</span></label
-                            >
-                            <input
-                                    type="email"
-                                    class="form-control"
-                                    id="email"
-                                    placeholder="you@example.com"
-                            />
-                            <div class="invalid-feedback">
-                                Please enter a valid email address for shipping updates.
+                            <div class="row align-items-center">
+                                <div class="col-3 text-end">
+                                    <label for="email" class="col-form-label">Email</label>
+                                </div>
+                                <div class="col-9">
+                                    <div class="row g-2">
+                                        <div class="col-9">
+                                            <input
+                                                    type="email"
+                                                    class="form-control"
+                                                    id="emailInput"
+                                                    placeholder="you@example.com"
+                                                    value="${email != null ? email : ""}"
+                                                    required
+                                            />
+                                            <div class="invalid-feedback">
+                                                Please enter a valid email address.
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <button class="btn btn-outline-secondary w-100" type="button" id="emailVerifyButton">
+                                                이메일 인증
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 이메일 인증 코드 -->
+                        <div class="col-12 d-none" id="emailCodeDiv">
+                            <div class="row align-items-center">
+                                <div class="col-3 text-end">
+                                    <label for="emailCode" class="col-form-label">Email Code</label>
+                                </div>
+                                <div class="col-9">
+                                    <div class="row g-2 align-items-center">
+                                        <div class="col-9">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="emailCode"
+                                                    placeholder="Please enter the email code"
+                                                    required
+                                            />
+                                            <div class="invalid-feedback">
+                                                인증코드를 입력해 주세요.
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <button
+                                                    class="btn btn-outline-secondary w-100"
+                                                    type="button"
+                                                    id="emailCodeCheckButton"
+                                            >
+                                                확인
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 비밀번호 -->
+                        <div class="col-12">
+                            <div class="row align-items-center">
+                                <div class="col-3 text-end">
+                                    <label for="password1" class="col-form-label">Password</label>
+                                </div>
+                                <div class="col-9">
+                                    <input
+                                            type="password"
+                                            class="form-control"
+                                            id="password1"
+                                            required
+                                    />
+                                    <div class="invalid-feedback">
+                                        Please enter a valid password.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 비밀번호 확인 -->
+                        <div class="col-12">
+                            <div class="row align-items-center">
+                                <div class="col-3 text-end">
+                                    <label for="password2" class="col-form-label">Password Check</label>
+                                </div>
+                                <div class="col-9">
+                                    <input
+                                            type="password"
+                                            class="form-control"
+                                            id="password2"
+                                            required
+                                    />
+                                    <div class="invalid-feedback">
+                                        Please enter a valid password.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <hr class="my-4" />
-                    <div class="form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="same-address"
-                        />
-                        <label class="form-check-label" for="same-address"
-                        >Shipping address is the same as my billing address</label
-                        >
-                    </div>
-                    <div class="form-check">
-                        <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="save-info"
-                        />
-                        <label class="form-check-label" for="save-info"
-                        >Save this information for next time</label
-                        >
-                    </div>
-                    <hr class="my-4" />
-                    <h4 class="mb-3">Payment</h4>
-                    <div class="my-3">
-                        <div class="form-check">
-                            <input
-                                    id="credit"
-                                    name="paymentMethod"
-                                    type="radio"
-                                    class="form-check-input"
-                                    checked
-                                    required
-                            />
-                            <label class="form-check-label" for="credit"
-                            >Credit card</label
-                            >
-                        </div>
-                        <div class="form-check">
-                            <input
-                                    id="debit"
-                                    name="paymentMethod"
-                                    type="radio"
-                                    class="form-check-input"
-                                    required
-                            />
-                            <label class="form-check-label" for="debit">Debit card</label>
-                        </div>
-                        <div class="form-check">
-                            <input
-                                    id="paypal"
-                                    name="paymentMethod"
-                                    type="radio"
-                                    class="form-check-input"
-                                    required
-                            />
-                            <label class="form-check-label" for="paypal">PayPal</label>
-                        </div>
-                    </div>
-                    <div class="row gy-3">
-                        <div class="col-md-6">
-                            <label for="cc-name" class="form-label">Name on card</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="cc-name"
-                                    placeholder=""
-                                    required
-                            />
-                            <small class="text-body-secondary"
-                            >Full name as displayed on card</small
-                            >
-                            <div class="invalid-feedback">Name on card is required</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="cc-number" class="form-label"
-                            >Credit card number</label
-                            >
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="cc-number"
-                                    placeholder=""
-                                    required
-                            />
-                            <div class="invalid-feedback">
-                                Credit card number is required
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="cc-expiration" class="form-label"
-                            >Expiration</label
-                            >
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="cc-expiration"
-                                    placeholder=""
-                                    required
-                            />
-                            <div class="invalid-feedback">Expiration date required</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="cc-cvv" class="form-label">CVV</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="cc-cvv"
-                                    placeholder=""
-                                    required
-                            />
-                            <div class="invalid-feedback">Security code required</div>
-                        </div>
-                    </div>
+
                     <hr class="my-4" />
                     <button class="w-100 btn btn-primary btn-lg" type="submit">
                         회원 가입
                     </button>
                 </form>
+
             </div>
         </div>
     </main>
@@ -378,9 +284,49 @@
     </footer>
 </div>
 <script
-        src="../assets/dist/js/bootstrap.bundle.min.js"
+        src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"
         class="astro-vvvwv3sm"
 ></script>
 <script src="${pageContext.request.contextPath}/resources/js/checkout.js" class="astro-vvvwv3sm"></script>
+
+<script>
+const emailInput = document.getElementById("emailInput");
+const emailVerifyBtn = document.getElementById("emailVerifyButton");
+const emailCodeDiv = document.getElementById("emailCodeDiv");
+
+window.onload = function () {
+    emailButtonState();
+}
+
+//이메일 형식 검사
+isValidEmail = function (value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+//이메일 인증 버튼 활성화
+emailButtonState = function () {
+    const email = emailInput.value;
+    if(isValidEmail(email)) {
+        emailVerifyBtn.classList.remove("btn-outline-secondary");
+        emailVerifyBtn.classList.add("btn-primary")
+        emailVerifyBtn.disabled = false;
+    }else {
+        emailVerifyBtn.classList.remove("btn-primary");
+        emailVerifyBtn.classList.add("btn-outline-secondary")
+        emailVerifyBtn.disabled = true;
+
+        //이메일이 다시 isValidEmail false며 인증코드 숨김
+        emailCodeDiv.classList.add("d-none")
+    }
+}
+//todo: 이제 인증 코드 보내는 이메일 추가해야 함
+emailInput.addEventListener("input", emailButtonState)
+emailVerifyBtn.addEventListener("click", function () {
+    if(emailVerifyBtn.disabled) {
+        return;
+    }
+    emailCodeDiv.classList.remove("d-none");
+})
+</script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package spring.legacy.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import spring.legacy.service.AccountService;
 
@@ -14,7 +15,6 @@ public class AccountController {
 
     public AccountController(AccountService accountService) {
         this.accountService = accountService;
-
     }
 
     @PostMapping("/check-email")
@@ -24,7 +24,9 @@ public class AccountController {
     }
 
     @GetMapping("sign-up")
-    public String signUpPage() {
+    public String signUpPage(@RequestParam("email") String email, Model model) {
+        System.out.println(email);
+        model.addAttribute("email", email);
         return "account/signUp";
     }
 }
