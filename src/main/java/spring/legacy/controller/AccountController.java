@@ -29,4 +29,11 @@ public class AccountController {
         model.addAttribute("email", email);
         return "account/signUp";
     }
+
+    @PostMapping("/email-verification")
+    @ResponseBody
+    public Map<String, Boolean> verifyEmail(@RequestParam("email") String email) {
+        System.out.println("드러옹나?");
+        return null;
+    }
 }

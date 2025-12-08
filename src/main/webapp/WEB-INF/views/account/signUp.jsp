@@ -319,13 +319,29 @@ emailButtonState = function () {
         emailCodeDiv.classList.add("d-none")
     }
 }
-//todo: 이제 인증 코드 보내는 이메일 추가해야 함
+
+verifyEmail = function () {
+    const email = emailInput.value;
+    const contextPath = "${pageContext.request.contextPath}";
+
+    fetch(contextPath + "/account/email-verification", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "Accept": "application/json"
+        },
+        body: new URLSearchParams({ email })
+    })
+        .then(res => res.json())
+}
+
 emailInput.addEventListener("input", emailButtonState)
 emailVerifyBtn.addEventListener("click", function () {
     if(emailVerifyBtn.disabled) {
         return;
     }
     emailCodeDiv.classList.remove("d-none");
+    verifyEmail();
 })
 </script>
 </body>

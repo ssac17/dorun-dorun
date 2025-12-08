@@ -161,8 +161,8 @@
             started.
         </p>
         <div class="mb-5">
-            <a href="../examples" class="btn btn-primary btn-lg px-4"
-            >Download examples</a
+            <a href="#" class="btn btn-primary btn-lg px-4"
+            >gogogogogo</a
             >
         </div>
         <hr class="col-3 col-md-2 mb-5" />
