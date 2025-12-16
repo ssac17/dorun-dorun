@@ -290,6 +290,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/checkout.js" class="astro-vvvwv3sm"></script>
 
 <script>
+const contextPath = "${pageContext.request.contextPath}";
 const emailInput = document.getElementById("emailInput");
 const emailVerifyBtn = document.getElementById("emailVerifyButton");
 const emailCodeDiv = document.getElementById("emailCodeDiv");
@@ -319,12 +320,9 @@ emailButtonState = function () {
         emailCodeDiv.classList.add("d-none")
     }
 }
-
-verifyEmail = function () {
+sendEmailCode = function (e) {
     const email = emailInput.value;
-    const contextPath = "${pageContext.request.contextPath}";
-
-    fetch(contextPath + "/account/email-verification", {
+    fetch(contextPath + "/account/send-code", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -335,13 +333,14 @@ verifyEmail = function () {
         .then(res => res.json())
 }
 
+
 emailInput.addEventListener("input", emailButtonState)
 emailVerifyBtn.addEventListener("click", function () {
     if(emailVerifyBtn.disabled) {
         return;
     }
     emailCodeDiv.classList.remove("d-none");
-    verifyEmail();
+    sendEmailCode();
 })
 </script>
 </body>

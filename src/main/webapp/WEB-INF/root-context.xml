@@ -28,8 +28,8 @@
         <constructor-arg ref="sqlSessionFactory" />
     </bean>
 
-    <context:property-placeholder location="resources/mail.properties"/>
-
+    <!-- 메일 셋팅 -->
+    <context:property-placeholder location="classpath:mail.properties"/>
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="${mail.host}"/>
         <property name="port" value="${mail.port}"/>

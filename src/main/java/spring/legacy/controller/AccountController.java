@@ -25,15 +25,15 @@ public class AccountController {
 
     @GetMapping("sign-up")
     public String signUpPage(@RequestParam("email") String email, Model model) {
-        System.out.println(email);
         model.addAttribute("email", email);
         return "account/signUp";
     }
 
-    @PostMapping("/email-verification")
+    @PostMapping("/send-code")
     @ResponseBody
-    public Map<String, Boolean> verifyEmail(@RequestParam("email") String email) {
-        System.out.println("드러옹나?");
-        return null;
+    public Map<String, Boolean> sendEmailCode(@RequestParam("email") String email) {
+        System.out.println("들어온 이메일 : " + email);
+        boolean result = accountService.sendVerificationEmail(email);
+        return Map.of("status", result);
     }
 }

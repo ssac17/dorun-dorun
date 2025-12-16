@@ -42,4 +42,4 @@ build/
 .idea
 
 src/main/webapp/WEB-INF/root-context.xml
-src/main/webapp/resources/mail.properties
+src/main/resources/mail.properties
