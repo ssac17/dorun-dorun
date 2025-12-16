@@ -79,8 +79,9 @@ public class AccountService {
         return """
                 안녕하세요, 두런두런 입니다.
                 아래 요청하신 이메일 인증 코드 안내드립니다.
-                
+               
                 인증코드: %s
+               
                 해당 코드를 회원가입 페이지에 입력해 주세요.
                 
                 """.formatted(code);

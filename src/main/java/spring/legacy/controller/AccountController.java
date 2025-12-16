@@ -32,7 +32,6 @@ public class AccountController {
     @PostMapping("/send-code")
     @ResponseBody
     public Map<String, Boolean> sendEmailCode(@RequestParam("email") String email) {
-        System.out.println("들어온 이메일 : " + email);
         boolean result = accountService.sendVerificationEmail(email);
         return Map.of("status", result);
     }

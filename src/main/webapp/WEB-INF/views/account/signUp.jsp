@@ -331,6 +331,12 @@ sendEmailCode = function (e) {
         body: new URLSearchParams({ email })
     })
         .then(res => res.json())
+        .then((data) => {
+            if(data.status) {
+                // todo: 이메일이 보내질때까지 로딩바 돌리기
+                alert("이메일이 발송되었습니다!");
+            }
+        })
 }
 
 
