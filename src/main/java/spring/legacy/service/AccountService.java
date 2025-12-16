@@ -33,8 +33,6 @@ public class AccountService {
 
     public boolean sendVerificationEmail(String email) {
         String code = generateVerificationCode();
-        System.out.println(code);
-
         try {
             SimpleMailMessage mail = new SimpleMailMessage();
             mail.setFrom(fromAddress);

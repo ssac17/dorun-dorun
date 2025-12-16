@@ -188,6 +188,42 @@
                                                 이메일 인증
                                             </button>
                                         </div>
+                                        <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content bg-transparent border-0 shadow-none">
+                                                    <div class="d-flex flex-column align-items-center justify-content-center p-4 bg-body rounded-3">
+                                                        <div class="spinner-border text-secondary mb-3" role="status">
+                                                            <span class="visually-hidden">Loading...</span>
+                                                        </div>
+                                                        <p class="mb-0">이메일을 보내는 중입니다...</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 이메일 발송 알림 모달(alert) -->
+                                        <div class="modal fade" id="sendEmailAlert" tabindex="-1"
+                                             aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content rounded-4 shadow">
+                                                    <div class="modal-header border-bottom-0">
+                                                        <h1 class="modal-title fs-5">알림</h1>
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body py-0">
+                                                        <p id="sendMailAlertMessage">
+                                                            이메일이 발송되었습니다.
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                                                        <button type="button" class="btn btn-lg btn-primary" data-bs-dismiss="modal">
+                                                            확인
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -294,6 +330,9 @@ const contextPath = "${pageContext.request.contextPath}";
 const emailInput = document.getElementById("emailInput");
 const emailVerifyBtn = document.getElementById("emailVerifyButton");
 const emailCodeDiv = document.getElementById("emailCodeDiv");
+const loadingModalDiv = document.getElementById("loadingModal");
+const loadingModal = new bootstrap.Modal(loadingModalDiv);
+
 
 window.onload = function () {
     emailButtonState();
@@ -320,8 +359,17 @@ emailButtonState = function () {
         emailCodeDiv.classList.add("d-none")
     }
 }
+
+const sendMailAlertModalDiv = document.getElementById("sendEmailAlert");
+const sendMailAlertModal = new bootstrap.Modal(sendMailAlertModalDiv);
+const sendMailAlertMessage = document.getElementById("sendMailAlertMessage");
+
 sendEmailCode = function (e) {
     const email = emailInput.value;
+    loadingModal.show();
+
+
+
     fetch(contextPath + "/account/send-code", {
         method: "POST",
         headers: {
@@ -334,8 +382,19 @@ sendEmailCode = function (e) {
         .then((data) => {
             if(data.status) {
                 // todo: 이메일이 보내질때까지 로딩바 돌리기
-                alert("이메일이 발송되었습니다!");
+                sendMailAlertMessage.textContent = "이메일이 발송되었습니다!"
+            }else {
+                sendMailAlertMessage.textContent = "이메일 발송이 실패하였습니다.."
             }
+            sendMailAlertModal.show();
+        })
+        .catch(error => {
+            console.error(error);
+            sendMailAlertMessage.textContent = "잠시 후 다시 시도해 주세요.";
+            sendMailAlertModal.show();
+        })
+        .finally(() => {
+            loadingModal.hide();
         })
 }
 
