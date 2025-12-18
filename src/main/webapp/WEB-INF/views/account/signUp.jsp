@@ -368,8 +368,6 @@ sendEmailCode = function (e) {
     const email = emailInput.value;
     loadingModal.show();
 
-
-
     fetch(contextPath + "/account/send-code", {
         method: "POST",
         headers: {
@@ -381,7 +379,6 @@ sendEmailCode = function (e) {
         .then(res => res.json())
         .then((data) => {
             if(data.status) {
-                // todo: 이메일이 보내질때까지 로딩바 돌리기
                 sendMailAlertMessage.textContent = "이메일이 발송되었습니다!"
             }else {
                 sendMailAlertMessage.textContent = "이메일 발송이 실패하였습니다.."

@@ -5,6 +5,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import spring.legacy.mapper.AccountMapper;
+import spring.legacy.mapper.EmailMapper;
 
 import java.security.SecureRandom;
 
@@ -16,11 +17,13 @@ public class AccountService {
 
     private final AccountMapper accountMapper;
     private final JavaMailSender mailSender;
+    private final EmailMapper emailMapper;
     private final SecureRandom random = new SecureRandom();
 
-    public AccountService(AccountMapper accountMapper, JavaMailSender mailSender) {
+    public AccountService(AccountMapper accountMapper, JavaMailSender mailSender, EmailMapper emailMapper) {
         this.accountMapper = accountMapper;
         this.mailSender = mailSender;
+        this.emailMapper = emailMapper;
     }
 
     public boolean isEmailExists(String email) {
@@ -33,6 +36,11 @@ public class AccountService {
 
     public boolean sendVerificationEmail(String email) {
         String code = generateVerificationCode();
+        int savedCount = emailMapper.savedVerificationCode(email, code);
+        if(savedCount == 0) {
+            throw new IllegalStateException("이메일 인증 코드 저장에 실패했습니다.");
+        }
+
         try {
             SimpleMailMessage mail = new SimpleMailMessage();
             mail.setFrom(fromAddress);
