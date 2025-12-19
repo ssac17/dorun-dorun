@@ -188,18 +188,6 @@
                                                 이메일 인증
                                             </button>
                                         </div>
-<%--                                        <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">--%>
-<%--                                            <div class="modal-dialog modal-dialog-centered">--%>
-<%--                                                <div class="modal-content bg-transparent border-0 shadow-none">--%>
-<%--                                                    <div class="d-flex flex-column align-items-center justify-content-center p-4 bg-body rounded-3">--%>
-<%--                                                        <div class="spinner-border text-secondary mb-3" role="status">--%>
-<%--                                                            <span class="visually-hidden">Loading...</span>--%>
-<%--                                                        </div>--%>
-<%--                                            ㅋ            <p class="mb-0">이메일을 보내는 중입니다...</p>--%>
-<%--                                                    </div>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
                                         <!-- 이메일 발송 알림 모달(alert) -->
                                         <div class="modal fade" id="sendEmailAlert" tabindex="-1"
                                              aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -331,10 +319,13 @@ const sendMailAlertModalDiv = document.getElementById("sendEmailAlert");
 const sendMailAlertModal = new bootstrap.Modal(sendMailAlertModalDiv);
 const sendMailAlertMessage = document.getElementById("sendMailAlertMessage");
 const emailCountDownText = document.getElementById("emailCountDownText");
+const emailCodeInput = document.getElementById("emailCode");
+const emailCodeCheckBtn = document.getElementById("emailCodeCheckButton");
 let countdownTimer = null;
 
 window.onload = function () {
     emailButtonState();
+    emailCodeButtonState();
 }
 
 //이메일 형식 검사
@@ -344,7 +335,7 @@ isValidEmail = function (value) {
 
 //이메일 인증 버튼 활성화
 emailButtonState = function () {
-    const email = emailInput.value;
+    const email = emailInput.value.trim();
     if(isValidEmail(email)) {
         emailVerifyBtn.classList.remove("btn-outline-secondary");
         emailVerifyBtn.classList.add("btn-primary")
@@ -358,6 +349,20 @@ emailButtonState = function () {
         emailCodeDiv.classList.add("d-none")
     }
 }
+
+emailCodeButtonState = function () {
+    const code = emailCodeInput.value.trim();
+    if(code.length === 6) {
+        emailCodeCheckBtn.classList.remove("btn-outline-secondary");
+        emailCodeCheckBtn.classList.add("btn-primary");
+        emailCodeCheckBtn.disabled = false;
+    }else {
+        emailCodeCheckBtn.classList.remove("btn-primary");
+        emailCodeCheckBtn.classList.add("btn-outline-secondary")
+        emailCodeCheckBtn.disabled = true;
+    }
+}
+
 
 sendEmailCode = function () {
     const email = emailInput.value;
@@ -391,6 +396,7 @@ sendEmailCode = function () {
 };
 
 emailInput.addEventListener("input", emailButtonState)
+emailCodeInput.addEventListener("input", emailCodeButtonState)
 emailVerifyBtn.addEventListener("click", function () {
     if(emailVerifyBtn.disabled) {
         return;
@@ -410,7 +416,7 @@ startEmailCountdown = function (second) {
     const updateText = () => {
         const min = String(Math.floor(remain / 60)).padStart(2, "0");
         const sec = String(remain % 60).padStart(2, "0");
-        emailCountDownText.textContent = "만료시간" + min + ":" + sec;
+        emailCountDownText.textContent = "만료 시간: " + min + ":" + sec;
     };
     updateText();
 
