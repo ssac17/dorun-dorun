@@ -70,3 +70,28 @@
 .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
 }
+
+#emailCountDownText {
+    font-size: 14px !important;
+}
+
+#pageOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1055; /* 모달보다 위 */
+}
+
+#pageOverlay .overlay-backdrop {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: all; /* 뒤 클릭 막기 */
+}
+
+/* d-none 대신 숨길 때 */
+#pageOverlay.d-none {
+    display: none !important;
+}

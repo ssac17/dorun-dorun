@@ -188,18 +188,18 @@
                                                 이메일 인증
                                             </button>
                                         </div>
-                                        <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content bg-transparent border-0 shadow-none">
-                                                    <div class="d-flex flex-column align-items-center justify-content-center p-4 bg-body rounded-3">
-                                                        <div class="spinner-border text-secondary mb-3" role="status">
-                                                            <span class="visually-hidden">Loading...</span>
-                                                        </div>
-                                                        <p class="mb-0">이메일을 보내는 중입니다...</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+<%--                                        <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">--%>
+<%--                                            <div class="modal-dialog modal-dialog-centered">--%>
+<%--                                                <div class="modal-content bg-transparent border-0 shadow-none">--%>
+<%--                                                    <div class="d-flex flex-column align-items-center justify-content-center p-4 bg-body rounded-3">--%>
+<%--                                                        <div class="spinner-border text-secondary mb-3" role="status">--%>
+<%--                                                            <span class="visually-hidden">Loading...</span>--%>
+<%--                                                        </div>--%>
+<%--                                            ㅋ            <p class="mb-0">이메일을 보내는 중입니다...</p>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
                                         <!-- 이메일 발송 알림 모달(alert) -->
                                         <div class="modal fade" id="sendEmailAlert" tabindex="-1"
                                              aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -223,7 +223,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -234,9 +233,11 @@
                                 <div class="col-3 text-end">
                                     <label for="emailCode" class="col-form-label">Email Code</label>
                                 </div>
+
                                 <div class="col-9">
                                     <div class="row g-2 align-items-center">
-                                        <div class="col-9">
+                                        <!-- 1. input -->
+                                        <div class="col-7">
                                             <input
                                                     type="text"
                                                     class="form-control"
@@ -249,18 +250,16 @@
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <button
-                                                    class="btn btn-outline-secondary w-100"
-                                                    type="button"
-                                                    id="emailCodeCheckButton"
-                                            >
-                                                확인
-                                            </button>
+                                            <span id="emailCountDownText" class="d-block"></span>
+                                        </div>
+                                        <div class="col-2">
+                                            <button class="btn btn-outline-secondary w-100" type="button" id="emailCodeCheckButton">확인</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <!-- 비밀번호 -->
                         <div class="col-12">
                             <div class="row align-items-center">
@@ -319,10 +318,8 @@
         </ul>
     </footer>
 </div>
-<script
-        src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"
-        class="astro-vvvwv3sm"
-></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
 <script src="${pageContext.request.contextPath}/resources/js/checkout.js" class="astro-vvvwv3sm"></script>
 
 <script>
@@ -330,9 +327,11 @@ const contextPath = "${pageContext.request.contextPath}";
 const emailInput = document.getElementById("emailInput");
 const emailVerifyBtn = document.getElementById("emailVerifyButton");
 const emailCodeDiv = document.getElementById("emailCodeDiv");
-const loadingModalDiv = document.getElementById("loadingModal");
-const loadingModal = new bootstrap.Modal(loadingModalDiv);
-
+const sendMailAlertModalDiv = document.getElementById("sendEmailAlert");
+const sendMailAlertModal = new bootstrap.Modal(sendMailAlertModalDiv);
+const sendMailAlertMessage = document.getElementById("sendMailAlertMessage");
+const emailCountDownText = document.getElementById("emailCountDownText");
+let countdownTimer = null;
 
 window.onload = function () {
     emailButtonState();
@@ -360,13 +359,8 @@ emailButtonState = function () {
     }
 }
 
-const sendMailAlertModalDiv = document.getElementById("sendEmailAlert");
-const sendMailAlertModal = new bootstrap.Modal(sendMailAlertModalDiv);
-const sendMailAlertMessage = document.getElementById("sendMailAlertMessage");
-
-sendEmailCode = function (e) {
+sendEmailCode = function () {
     const email = emailInput.value;
-    loadingModal.show();
 
     fetch(contextPath + "/account/send-code", {
         method: "POST",
@@ -378,10 +372,14 @@ sendEmailCode = function (e) {
     })
         .then(res => res.json())
         .then((data) => {
-            if(data.status) {
-                sendMailAlertMessage.textContent = "이메일이 발송되었습니다!"
-            }else {
-                sendMailAlertMessage.textContent = "이메일 발송이 실패하였습니다.."
+            sendMailAlertMessage.textContent = data.message;
+            console.log(data)
+            if (data.status) {
+                emailVerifyBtn.classList.remove("btn-primary");
+                emailVerifyBtn.classList.add("btn-outline-secondary");
+                emailVerifyBtn.disabled = true;
+                emailCodeDiv.classList.remove("d-none");
+                startEmailCountdown(180);
             }
             sendMailAlertModal.show();
         })
@@ -389,12 +387,8 @@ sendEmailCode = function (e) {
             console.error(error);
             sendMailAlertMessage.textContent = "잠시 후 다시 시도해 주세요.";
             sendMailAlertModal.show();
-        })
-        .finally(() => {
-            loadingModal.hide();
-        })
-}
-
+        });
+};
 
 emailInput.addEventListener("input", emailButtonState)
 emailVerifyBtn.addEventListener("click", function () {
@@ -404,6 +398,42 @@ emailVerifyBtn.addEventListener("click", function () {
     emailCodeDiv.classList.remove("d-none");
     sendEmailCode();
 })
+
+
+startEmailCountdown = function (second) {
+    if(countdownTimer !== null) {
+        clearInterval(countdownTimer);
+    }
+
+    let remain = second;
+
+    const updateText = () => {
+        const min = String(Math.floor(remain / 60)).padStart(2, "0");
+        const sec = String(remain % 60).padStart(2, "0");
+        emailCountDownText.textContent = "만료시간" + min + ":" + sec;
+    };
+    updateText();
+
+    countdownTimer = setInterval(() => {
+        remain -= 1;
+
+        if(remain <= 0) {
+            clearInterval(countdownTimer);
+            countdownTimer = null;
+            emailCountDownText.textContent = "시간 만료";
+            return;
+        }
+        updateText();
+    }, 1000);
+}
+
+sendMailAlertModalDiv.addEventListener("hidden.bs.modal", function () {
+    if(sendMailAlertModalDiv.contains(document.activeElement)) {
+        document.activeElement.blur();
+        document.body.focus();
+    }
+})
 </script>
+
 </body>
 </html>

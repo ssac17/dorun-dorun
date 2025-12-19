@@ -5,7 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import spring.legacy.service.AccountService;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/account")
@@ -31,8 +33,12 @@ public class AccountController {
 
     @PostMapping("/send-code")
     @ResponseBody
-    public Map<String, Boolean> sendEmailCode(@RequestParam("email") String email) {
+    public Map<String, Object> sendEmailCode(@RequestParam("email") String email) {
         boolean result = accountService.sendVerificationEmail(email);
-        return Map.of("status", result);
+        String message = result ? "이메일이 발송되었습니다!" : "이메일 발송이 실패하였습니다..";
+        return Map.of(
+                "status", result,
+                "message", message
+        );
     }
 }

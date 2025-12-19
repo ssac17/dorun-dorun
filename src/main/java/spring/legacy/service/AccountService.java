@@ -1,7 +1,6 @@
 package spring.legacy.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import spring.legacy.mapper.AccountMapper;
@@ -15,14 +14,14 @@ public class AccountService {
     private final String CODE_STR = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private final String CODE_NUMBER = "0123456789";
 
+    private final EmailService emailService;
     private final AccountMapper accountMapper;
-    private final JavaMailSender mailSender;
     private final EmailMapper emailMapper;
     private final SecureRandom random = new SecureRandom();
 
-    public AccountService(AccountMapper accountMapper, JavaMailSender mailSender, EmailMapper emailMapper) {
+    public AccountService(EmailService emailService, AccountMapper accountMapper, EmailMapper emailMapper) {
+        this.emailService = emailService;
         this.accountMapper = accountMapper;
-        this.mailSender = mailSender;
         this.emailMapper = emailMapper;
     }
 
@@ -41,19 +40,8 @@ public class AccountService {
             throw new IllegalStateException("이메일 인증 코드 저장에 실패했습니다.");
         }
 
-        try {
-            SimpleMailMessage mail = new SimpleMailMessage();
-            mail.setFrom(fromAddress);
-            mail.setTo(email);
-            mail.setSubject("[" + code + "] 이메일 인증 코드 - 두런두런");
-            mail.setText(mailContent(code));
-            mailSender.send(mail);
-            return true;
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return false;
+        emailService.sendVerificationEmailAsync(email, code, mailContent(code));
+        return true;
     }
 
     private String generateVerificationCode() {
