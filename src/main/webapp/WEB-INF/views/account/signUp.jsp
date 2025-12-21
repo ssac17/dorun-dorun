@@ -414,8 +414,19 @@ verifyEmailCode = function () {
             sendMailAlertMessage.textContent = data.message;
             console.log(data)
             if (data.status) {
-                console.log(data);
-
+                //인증 완료 후 이메일인증div 태그 숨김
+                emailCodeDiv.classList.add("d-none");
+                if(countdownTimer !== null) {
+                    clearInterval(countdownTimer);
+                    countdownTimer = null;
+                }
+                emailCountDownText.textContent = "";
+                //인증완료된 이메일input disabled
+                emailInput.disabled =true;
+                emailVerifyBtn.disabled = true;
+                emailVerifyBtn.textContent = "인증완료";
+                emailVerifyBtn.classList.remove("btn-outline-secondary", "btn-primary");
+                emailVerifyBtn.classList.add("btn-success");
             }
             sendMailAlertModal.show();
         })
