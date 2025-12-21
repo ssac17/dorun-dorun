@@ -10,4 +10,22 @@
         values
             (#{email}, #{code}, date_add(now(), interval 3 minute))
     </insert>
+    <select id="existsEmailCode">
+        select count(*)
+        from email_verification
+        where
+            email = #{email}
+        and
+            code = #{code}
+    </select>
+    <select id="expiresAtEmailCode">
+        select count(*)
+        from email_verification
+        where
+            email = #{email}
+        and
+            code = #{code}
+        and
+            expires_at > now()
+    </select>
 </mapper>

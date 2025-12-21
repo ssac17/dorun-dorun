@@ -1,7 +1,6 @@
 package spring.legacy.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import spring.legacy.mapper.AccountMapper;
 import spring.legacy.mapper.EmailMapper;
@@ -35,6 +34,7 @@ public class AccountService {
 
     public boolean sendVerificationEmail(String email) {
         String code = generateVerificationCode();
+        System.out.println("code: " + code);
         int savedCount = emailMapper.savedVerificationCode(email, code);
         if(savedCount == 0) {
             throw new IllegalStateException("이메일 인증 코드 저장에 실패했습니다.");
@@ -42,6 +42,18 @@ public class AccountService {
 
         emailService.sendVerificationEmailAsync(email, code, mailContent(code));
         return true;
+    }
+
+    public String verifyEmailCode(String email, String code) {
+        int existedCode = emailMapper.existsEmailCode(email, code);
+        if(existedCode == 0) {
+            return "인증코드가 올바르지 않습니다. 다시 확인해 주세요.";
+        }
+        int validCode = emailMapper.expiresAtEmailCode(email, code);
+        if(validCode == 0) {
+            return "인증코드의 기한이 만료되었습니다. 다시 발급해 주세요.";
+        }
+        return "인증되었습니다!";
     }
 
     private String generateVerificationCode() {

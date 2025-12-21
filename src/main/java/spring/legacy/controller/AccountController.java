@@ -41,4 +41,12 @@ public class AccountController {
                 "message", message
         );
     }
+
+    @PostMapping("/verify-code")
+    @ResponseBody
+    public Map<String, Object> verifyEmailCode(@RequestParam("email") String email, @RequestParam("code") String code) {
+        String message = accountService.verifyEmailCode(email, code);
+        boolean status = message.equals("인증되었습니다!");
+        return Map.of("status", status, "message", message);
+    }
 }

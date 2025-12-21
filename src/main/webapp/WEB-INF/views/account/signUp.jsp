@@ -231,6 +231,7 @@
                                                     class="form-control"
                                                     id="emailCode"
                                                     placeholder="Please enter the email code"
+                                                    maxlength="6"
                                                     required
                                             />
                                             <div class="invalid-feedback">
@@ -349,7 +350,7 @@ emailButtonState = function () {
         emailCodeDiv.classList.add("d-none")
     }
 }
-
+//이메일 인증코드 버튼 활성화
 emailCodeButtonState = function () {
     const code = emailCodeInput.value.trim();
     if(code.length === 6) {
@@ -363,9 +364,9 @@ emailCodeButtonState = function () {
     }
 }
 
-
+// 이메일 인증코드 발송
 sendEmailCode = function () {
-    const email = emailInput.value;
+    const email = emailInput.value.trim();
 
     fetch(contextPath + "/account/send-code", {
         method: "POST",
@@ -395,8 +396,41 @@ sendEmailCode = function () {
         });
 };
 
+// 이메일인증코드 확인
+verifyEmailCode = function () {
+    const email = emailInput.value.trim();
+    const code = emailCodeInput.value.trim();
+
+    fetch(contextPath + "/account/verify-code", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "Accept": "application/json"
+        },
+        body: new URLSearchParams({ email, code })
+    })
+        .then(res => res.json())
+        .then((data) => {
+            sendMailAlertMessage.textContent = data.message;
+            console.log(data)
+            if (data.status) {
+                console.log(data);
+
+            }
+            sendMailAlertModal.show();
+        })
+        .catch(error => {
+            console.error(error);
+            sendMailAlertMessage.textContent = "잠시 후 다시 시도해 주세요.";
+            sendMailAlertModal.show();
+        });
+}
+
+// 이메일 input 체크
 emailInput.addEventListener("input", emailButtonState)
+// 이메일 인증코드 input 체크
 emailCodeInput.addEventListener("input", emailCodeButtonState)
+// 이메일 인증코드 발송 이벤트
 emailVerifyBtn.addEventListener("click", function () {
     if(emailVerifyBtn.disabled) {
         return;
@@ -404,8 +438,13 @@ emailVerifyBtn.addEventListener("click", function () {
     emailCodeDiv.classList.remove("d-none");
     sendEmailCode();
 })
+// 이메일 인증코드 확인
+emailCodeCheckBtn.addEventListener("click", function () {
+    if(emailCodeCheckBtn.disabled) return;
+    verifyEmailCode();
+})
 
-
+// 이메일 인증코드 발송 후 인증 시간 카운트다운
 startEmailCountdown = function (second) {
     if(countdownTimer !== null) {
         clearInterval(countdownTimer);
@@ -433,13 +472,17 @@ startEmailCountdown = function (second) {
     }, 1000);
 }
 
-sendMailAlertModalDiv.addEventListener("hidden.bs.modal", function () {
-    if(sendMailAlertModalDiv.contains(document.activeElement)) {
-        document.activeElement.blur();
-        document.body.focus();
+// 이메일 전송 모달 엔터, esc, 스페이스 keydown로 닫기
+document.addEventListener("keydown", function (e) {
+    const emailModalOpen = sendMailAlertModalDiv.classList.contains("show");
+    if(!emailModalOpen) return;
+
+    const key = e.key;
+    if(key === "Escape" || key === " " || key === "Enter") {
+        e.preventDefault();
+        sendMailAlertModal.hide();
     }
 })
 </script>
-
 </body>
 </html>
