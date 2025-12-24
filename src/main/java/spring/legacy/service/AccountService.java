@@ -2,6 +2,7 @@ package spring.legacy.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import spring.legacy.dto.AccountDto;
 import spring.legacy.mapper.AccountMapper;
 import spring.legacy.mapper.EmailMapper;
 
@@ -54,6 +55,10 @@ public class AccountService {
             return "인증코드의 기한이 만료되었습니다. 다시 발급해 주세요.";
         }
         return "인증되었습니다!";
+    }
+
+    public int register(AccountDto accountDto) {
+        return accountMapper.insertAccount(accountDto);
     }
 
     private String generateVerificationCode() {

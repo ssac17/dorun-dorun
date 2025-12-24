@@ -12,4 +12,11 @@
         where email =#{email}
     </select>
 
+    <!-- 회원 등록 -->
+    <insert id="insertAccount">
+        insert into
+            account (name, email, password)
+        values
+            (#{name}, #{email}, #{password})
+    </insert>
 </mapper>

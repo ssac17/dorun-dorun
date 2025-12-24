@@ -3,11 +3,10 @@ package spring.legacy.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import spring.legacy.dto.AccountDto;
 import spring.legacy.service.AccountService;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/account")
@@ -49,4 +48,13 @@ public class AccountController {
         boolean status = message.equals("인증되었습니다!");
         return Map.of("status", status, "message", message);
     }
+
+    @PostMapping("/sign-up")
+    public String signUp(AccountDto accountDto) {
+        System.out.println(accountDto);
+        int result = accountService.register(accountDto);
+        System.out.println("result " + result);
+        return "";
+    }
+
 }

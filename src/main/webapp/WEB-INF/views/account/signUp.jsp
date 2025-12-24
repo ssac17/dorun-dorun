@@ -140,7 +140,7 @@
         <div class="row g-5">
             <div class="col-md-7 col-lg-8 mx-auto">
                 <h4 class="mb-3">어떤 문구가 들어가는게 좋을까?</h4>
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" method="POST" action="${pageContext.request.contextPath}/account/sign-up" novalidate id="signUpForm">
                     <div class="row g-3">
                         <!-- 이름 -->
                         <div class="col-12">
@@ -153,6 +153,7 @@
                                             type="text"
                                             class="form-control"
                                             id="userName"
+                                            name="name"
                                             placeholder="John"
                                             required
                                     />
@@ -176,6 +177,7 @@
                                                     class="form-control"
                                                     id="emailInput"
                                                     placeholder="you@example.com"
+                                                    name="email"
                                                     value="${email != null ? email : ""}"
                                                     required
                                             />
@@ -232,6 +234,7 @@
                                                     id="emailCode"
                                                     placeholder="Please enter the email code"
                                                     maxlength="6"
+                                                    autocomplete="one-time-code"
                                                     required
                                             />
                                             <div class="invalid-feedback">
@@ -253,13 +256,15 @@
                         <div class="col-12">
                             <div class="row align-items-center">
                                 <div class="col-3 text-end">
-                                    <label for="password1" class="col-form-label">Password</label>
+                                    <label for="password" class="col-form-label">Password</label>
                                 </div>
                                 <div class="col-9">
                                     <input
                                             type="password"
                                             class="form-control"
-                                            id="password1"
+                                            id="password"
+                                            name="password"
+                                            autocomplete="new-password"
                                             required
                                     />
                                     <div class="invalid-feedback">
@@ -272,13 +277,15 @@
                         <div class="col-12">
                             <div class="row align-items-center">
                                 <div class="col-3 text-end">
-                                    <label for="password2" class="col-form-label">Password Check</label>
+                                    <label for="passwordCheck" class="col-form-label">Password Check</label>
                                 </div>
                                 <div class="col-9">
                                     <input
                                             type="password"
                                             class="form-control"
-                                            id="password2"
+                                            id="passwordCheck"
+                                            name="passwordCheck"
+                                            autocomplete="new-password"
                                             required
                                     />
                                     <div class="invalid-feedback">
@@ -290,7 +297,7 @@
                     </div>
 
                     <hr class="my-4" />
-                    <button class="w-100 btn btn-primary btn-lg" type="submit">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit" id="signupButton">
                         회원 가입
                     </button>
                 </form>
@@ -322,7 +329,10 @@ const sendMailAlertMessage = document.getElementById("sendMailAlertMessage");
 const emailCountDownText = document.getElementById("emailCountDownText");
 const emailCodeInput = document.getElementById("emailCode");
 const emailCodeCheckBtn = document.getElementById("emailCodeCheckButton");
+const signUpForm = document.getElementById("signUpForm");
+const signupBtn = document.getElementById("signupButton");
 let countdownTimer = null;
+let isEmailVerified = false;
 
 window.onload = function () {
     emailButtonState();
@@ -427,6 +437,8 @@ verifyEmailCode = function () {
                 emailVerifyBtn.textContent = "인증완료";
                 emailVerifyBtn.classList.remove("btn-outline-secondary", "btn-primary");
                 emailVerifyBtn.classList.add("btn-success");
+
+                isEmailVerified = true;
             }
             sendMailAlertModal.show();
         })
@@ -435,6 +447,10 @@ verifyEmailCode = function () {
             sendMailAlertMessage.textContent = "잠시 후 다시 시도해 주세요.";
             sendMailAlertModal.show();
         });
+}
+
+signUp = function () {
+    signUpForm.submit();
 }
 
 // 이메일 input 체크
@@ -454,6 +470,7 @@ emailCodeCheckBtn.addEventListener("click", function () {
     if(emailCodeCheckBtn.disabled) return;
     verifyEmailCode();
 })
+signupBtn.addEventListener("click", signUp);
 
 // 이메일 인증코드 발송 후 인증 시간 카운트다운
 startEmailCountdown = function (second) {
