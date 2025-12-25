@@ -30,6 +30,11 @@
           <version>6.2.12</version>
       </dependency>
       <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-crypto</artifactId>
+          <version>6.2.8</version>
+      </dependency>
+      <dependency>
           <groupId>org.springframework</groupId>
           <artifactId>spring-context-support</artifactId>
           <version>6.2.12</version>
@@ -40,6 +45,11 @@
           <artifactId>jakarta.servlet-api</artifactId>
           <version>6.1.0</version>
           <scope>provided</scope>
+      </dependency>
+      <dependency>
+          <groupId>jakarta.validation</groupId>
+          <artifactId>jakarta.validation-api</artifactId>
+          <version>3.1.1</version>
       </dependency>
       <dependency>
           <groupId>jakarta.servlet.jsp.jstl</groupId>
