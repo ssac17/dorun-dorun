@@ -1,6 +1,7 @@
 package spring.legacy.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import spring.legacy.dto.AccountDto;
 import spring.legacy.mapper.AccountMapper;
@@ -17,12 +18,14 @@ public class AccountService {
     private final EmailService emailService;
     private final AccountMapper accountMapper;
     private final EmailMapper emailMapper;
+    private final PasswordEncoder passwordEncoder;
     private final SecureRandom random = new SecureRandom();
 
-    public AccountService(EmailService emailService, AccountMapper accountMapper, EmailMapper emailMapper) {
+    public AccountService(EmailService emailService, AccountMapper accountMapper, EmailMapper emailMapper, PasswordEncoder passwordEncoder) {
         this.emailService = emailService;
         this.accountMapper = accountMapper;
         this.emailMapper = emailMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean isEmailExists(String email) {
@@ -58,6 +61,7 @@ public class AccountService {
     }
 
     public int register(AccountDto accountDto) {
+        accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         return accountMapper.insertAccount(accountDto);
     }
 
