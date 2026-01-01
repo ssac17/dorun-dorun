@@ -258,17 +258,52 @@
         </div>
     </div>
 </div>
+<!-- 모달(alert) -->
+<div class="modal fade" id="alertModal" tabindex="-1"
+     aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header border-bottom-0">
+                <h1 class="modal-title fs-5">알림</h1>
+                <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+                <p id="alertMessage">
+                    이메일이 발송되었습니다.
+                </p>
+            </div>
+            <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
+                <button type="button" class="btn btn-lg btn-primary" data-bs-dismiss="modal">
+                    확인
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <script
         src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"
         class="astro-vvvwv3sm"
 ></script>
 <script>
+const sendMailAlertModalDiv = document.getElementById("alertModal");
+const alertMessage = document.getElementById("alertMessage");
+const alertModal = new bootstrap.Modal(sendMailAlertModalDiv);
+
+
 window.onload = function () {
     const signUpBtn = document.getElementById("signUpButon");
     signUpBtn.addEventListener('click', function (e) {
         e.preventDefault();
         checkEmail();
     })
+
+    //회원가입 완료, 리다이렉트시 가입완료 modal
+    const message = "${message}";
+    if(message) {
+        alertMessage.textContent = message;
+        alertModal.show();
+    }
 }
 
 checkEmail = function () {
@@ -285,6 +320,7 @@ checkEmail = function () {
     })
         .then(res => res.json())
         .then((data) => {
+            console.log(data);
             const alertContainer = document.getElementById("signUpAlert");
             if(data.exists) {
             alertContainer.innerHTML = `

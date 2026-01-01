@@ -2,6 +2,7 @@ package spring.legacy.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 public class AccountDto {
 
@@ -12,7 +13,9 @@ public class AccountDto {
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
     private String email;
 
-
+    @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{10,}$",
+            message = "비밀번호는 10자 이상이며 대문자, 소문자, 숫자, 특수문자를 모두 포함해야 합니다.")
     private String password;
 
     public String getName() {

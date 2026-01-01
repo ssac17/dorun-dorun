@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!doctype html>
 <html lang="ko" data-bs-theme="auto">
 
@@ -190,8 +191,8 @@
                                                 이메일 인증
                                             </button>
                                         </div>
-                                        <!-- 이메일 발송 알림 모달(alert) -->
-                                        <div class="modal fade" id="sendEmailAlert" tabindex="-1"
+                                        <!-- 모달(alert) -->
+                                        <div class="modal fade" id="alertModal" tabindex="-1"
                                              aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content rounded-4 shadow">
@@ -201,7 +202,7 @@
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body py-0">
-                                                        <p id="sendMailAlertMessage">
+                                                        <p id="alertMessage">
                                                             이메일이 발송되었습니다.
                                                         </p>
                                                     </div>
@@ -268,7 +269,10 @@
                                             required
                                     />
                                     <div class="invalid-feedback">
-                                        Please enter a valid password.
+                                        <c:choose>
+                                            <c:when test="${not empty passwordError}">${passwordError}</c:when>
+                                            <c:otherwise>비밀번호를 입력해 주세요.</c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>
@@ -323,9 +327,9 @@ const contextPath = "${pageContext.request.contextPath}";
 const emailInput = document.getElementById("emailInput");
 const emailVerifyBtn = document.getElementById("emailVerifyButton");
 const emailCodeDiv = document.getElementById("emailCodeDiv");
-const sendMailAlertModalDiv = document.getElementById("sendEmailAlert");
-const sendMailAlertModal = new bootstrap.Modal(sendMailAlertModalDiv);
-const sendMailAlertMessage = document.getElementById("sendMailAlertMessage");
+const sendMailAlertModalDiv = document.getElementById("alertModal");
+const alertModal = new bootstrap.Modal(sendMailAlertModalDiv);
+const alertMessage = document.getElementById("alertMessage");
 const emailCountDownText = document.getElementById("emailCountDownText");
 const emailCodeInput = document.getElementById("emailCode");
 const emailCodeCheckBtn = document.getElementById("emailCodeCheckButton");
@@ -388,7 +392,7 @@ sendEmailCode = function () {
     })
         .then(res => res.json())
         .then((data) => {
-            sendMailAlertMessage.textContent = data.message;
+            alertMessage.textContent = data.message;
             console.log(data)
             if (data.status) {
                 emailVerifyBtn.classList.remove("btn-primary");
@@ -397,12 +401,12 @@ sendEmailCode = function () {
                 emailCodeDiv.classList.remove("d-none");
                 startEmailCountdown(180);
             }
-            sendMailAlertModal.show();
+            alertModal.show();
         })
         .catch(error => {
             console.error(error);
-            sendMailAlertMessage.textContent = "잠시 후 다시 시도해 주세요.";
-            sendMailAlertModal.show();
+            alertMessage.textContent = "잠시 후 다시 시도해 주세요.";
+            alertModal.show();
         });
 };
 
@@ -421,7 +425,7 @@ verifyEmailCode = function () {
     })
         .then(res => res.json())
         .then((data) => {
-            sendMailAlertMessage.textContent = data.message;
+            alertMessage.textContent = data.message;
             console.log(data)
             if (data.status) {
                 //인증 완료 후 이메일인증div 태그 숨김
@@ -431,8 +435,8 @@ verifyEmailCode = function () {
                     countdownTimer = null;
                 }
                 emailCountDownText.textContent = "";
-                //인증완료된 이메일input disabled
-                emailInput.disabled =true;
+                //인증완료된 이메일input disabled로 하면 null로 들어옴, readOnly로 수정
+                emailInput.readOnly =true;
                 emailVerifyBtn.disabled = true;
                 emailVerifyBtn.textContent = "인증완료";
                 emailVerifyBtn.classList.remove("btn-outline-secondary", "btn-primary");
@@ -440,16 +444,27 @@ verifyEmailCode = function () {
 
                 isEmailVerified = true;
             }
-            sendMailAlertModal.show();
+            alertModal.show();
         })
         .catch(error => {
             console.error(error);
-            sendMailAlertMessage.textContent = "잠시 후 다시 시도해 주세요.";
-            sendMailAlertModal.show();
+            alertMessage.textContent = "잠시 후 다시 시도해 주세요.";
+            alertModal.show();
         });
 }
 
-signUp = function () {
+signUp = function (e) {
+    if(!signUpForm.checkVisibility()) {
+        e.preventDefault();
+        e.stopPropagation();
+        signUpForm.classList.add("was-validated");
+    }
+
+    if(!isEmailVerified) {
+        alertMessage.textContent = "이메일 인증을 완료해 주세요.";
+        alertModal.show();
+        return;
+    }
     signUpForm.submit();
 }
 
@@ -462,7 +477,6 @@ emailVerifyBtn.addEventListener("click", function () {
     if(emailVerifyBtn.disabled) {
         return;
     }
-    emailCodeDiv.classList.remove("d-none");
     sendEmailCode();
 })
 // 이메일 인증코드 확인
@@ -508,7 +522,7 @@ document.addEventListener("keydown", function (e) {
     const key = e.key;
     if(key === "Escape" || key === " " || key === "Enter") {
         e.preventDefault();
-        sendMailAlertModal.hide();
+        alertModal.hide();
     }
 })
 </script>
