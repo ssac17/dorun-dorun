@@ -8,6 +8,13 @@
          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
          http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
+    <!-- 여기 context: 로 -->
+    <context:component-scan base-package="spring.legacy.config"/>
+    <context:component-scan base-package="spring.legacy.service" />
+
+    <!-- MyBatis mapper 스캔 -->
+    <mybatis-spring:scan base-package="spring.legacy.mapper" />
+
     <!-- 1) MySQL DataSource -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>

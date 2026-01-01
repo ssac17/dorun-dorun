@@ -1,5 +1,8 @@
 package spring.legacy.service;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
+    private static final Logger log = LoggerFactory.getLogger(EmailService.class);
     private final JavaMailSender mailSender;
 
     @Value("${mail.from}")
@@ -28,7 +32,7 @@ public class EmailService {
             mail.setText(text);
             mailSender.send(mail);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("EmailService.sendVerificationEmailAsync email: {}, error {}", email, e.getMessage(), e);
         }
     }
 }

@@ -7,9 +7,12 @@
 
     <!-- 이메일 존재 여부 확인 -->
     <select id="isEmailExists" parameterType="string" resultType="boolean">
-        select count(*)
-        from account
-        where email =#{email}
+        select
+            count(*)
+        from
+            account
+        where
+            email = #{email}
     </select>
 
     <!-- 회원 등록 -->
@@ -19,4 +22,14 @@
         values
             (#{name}, #{email}, #{password})
     </insert>
+
+    <!-- 이메일로 가져오기 -->
+    <select id="findByEmail" resultType="spring.legacy.dto.AccountDto">
+        select
+            name, email, password
+        from
+            account
+        where
+            email = #{email}
+    </select>
 </mapper>

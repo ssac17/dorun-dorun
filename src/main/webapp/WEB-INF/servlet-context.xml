@@ -25,12 +25,5 @@
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
 
-    <!-- 여기 context: 로 -->
     <context:component-scan base-package="spring.legacy.controller" />
-    <context:component-scan base-package="spring.legacy.service" />
-    <context:component-scan base-package="spring.legacy.config"/>
-
-    <!-- MyBatis mapper 스캔 -->
-    <mybatis-spring:scan base-package="spring.legacy.mapper" />
-
 </beans:beans>

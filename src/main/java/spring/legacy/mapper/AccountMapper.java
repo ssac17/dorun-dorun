@@ -7,4 +7,5 @@ import spring.legacy.dto.AccountDto;
 public interface AccountMapper {
     boolean isEmailExists(String email);
     int insertAccount(AccountDto accountDto);
+    AccountDto findByEmail(String email);
 }
