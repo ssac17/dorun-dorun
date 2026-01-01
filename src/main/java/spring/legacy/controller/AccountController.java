@@ -74,7 +74,7 @@ public class AccountController {
         int result = accountService.register(accountDto);
         if(result > 0) {
             redirectAttr.addFlashAttribute("message", "회원가입이 완료 되었습니다!");
-        }`
+        }
         return "redirect:/";
     }
 }
