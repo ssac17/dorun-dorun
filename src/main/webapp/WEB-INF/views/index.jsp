@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="ko" data-bs-theme="auto">
 
 <%-- head 공통 --%>
 <%@ include file="layout/header.jsp" %>
-
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
@@ -117,41 +117,6 @@
     </symbol>
 </svg>
 <div class="col-lg-8 mx-auto p-4 py-md-5">
-    <header
-            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
-    >
-        <div class="col-md-3 mb-2 mb-md-0">
-            <a
-                    href="/"
-                    class="d-inline-flex link-body-emphasis text-decoration-none"
-            >
-                <svg
-                        class="bi"
-                        width="40"
-                        height="32"
-                        role="img"
-                        aria-label="Bootstrap"
-                >
-                    <use xlink:href="${pageContext.request.contextPath}/resources/image/lightning.svg"></use>
-                </svg>
-            </a>
-        </div>
-        <ul
-                class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0"
-        >
-            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-            <li><a href="#" class="nav-link px-2">Features</a></li>
-            <li><a href="#" class="nav-link px-2">Pricing</a></li>
-            <li><a href="#" class="nav-link px-2">FAQs</a></li>
-            <li><a href="#" class="nav-link px-2">About</a></li>
-        </ul>
-        <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-primary me-2">
-                Login
-            </button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal", data-bs-target="#modalSignUp">Sign-up</button>
-        </div>
-    </header>
     <main>
         <h1 class="text-body-emphasis">Get started with Bootstrap</h1>
         <p class="fs-5 col-md-8">
@@ -181,18 +146,19 @@
         Created by the Bootstrap team &middot; &copy; 2025
     </footer>
 </div>
+<%-- 로그인 모달 --%>
 <div
         class="modal fade"
         tabindex="-1"
         role="dialog"
-        id="modalSignUp"
+        id="modalLogin"
         aria-hidden="true"
         data-bs-backdrop="static"
 >
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4 shadow">
             <div class="modal-header p-5 pb-4 border-bottom-0">
-                <h1 class="fw-bold mb-0 fs-2">회원 가입을 해주세요</h1>
+                <h1 class="fw-bold mb-0 fs-2">로그인</h1>
                 <button
                         type="button"
                         class="btn-close"
@@ -201,59 +167,17 @@
                 ></button>
             </div>
             <div class="modal-body p-5 pt-0">
-                <form class="">
-                    <div class="form-floating mb-3">
-                        <input
-                                type="email"
-                                class="form-control rounded-3"
-                                id="emailInput"
-                                placeholder="name@example.com"
-                        />
-                        <label for="floatingInput">Email address</label>
+                <form id="loginForm"> <div class="form-floating mb-3">
+                    <input type="email" class="form-control rounded-3" id="emailInput" name="email" placeholder="name@example.com" />
+                    <label for="emailInput">Email address</label>
+                </div>
+                    <div id="signUpAlert"></div> <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-3" id="passwordInput" name="password" placeholder="Password" />
+                        <label for="passwordInput">Password</label>
                     </div>
-                    <div id="signUpAlert">
-
-                    </div>
-                    <small class="text-body-secondary d-block mt-1 mb-3"
-                    >가입할 이메일을 입력해 주세요.</small
-                    >
-                    <button
-                            class="w-100 mb-2 btn btn-lg rounded-3 btn-primary alert-dismissible"
-                            type="button"
-                            id="signUpButon"
-                    >
-                        Sign up
-                    </button>
-                    <hr class="my-4" />
-                    <h2 class="fs-5 fw-bold mb-3">추후 수정</h2>
-                    <button
-                            class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
-                            type="submit"
-                    >
-                        <svg class="bi me-1" width="16" height="16" aria-hidden="true">
-                            <use xlink:href="#"></use>
-                        </svg>
-                        Sign up with Google
-                    </button>
-                    <button
-                            class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3"
-                            type="submit"
-                    >
-                        <svg class="bi me-1" width="16" height="16" aria-hidden="true">
-                            <use xlink:href="#"></use>
-                        </svg>
-                        Sign up with Facebook
-                    </button>
-                    <button
-                            class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"
-                            type="submit"
-                    >
-                        <svg class="bi me-1" width="16" height="16" aria-hidden="true">
-                            <use xlink:href="#"></use>
-                        </svg>
-                        Sign up with GitHub
-                    </button>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="LoginButon">Login</button>
                 </form>
+                <div><small>아직 회원이 아니신가요? </small><a href="account/sign-up">회원 가입</a></div>
             </div>
         </div>
     </div>
@@ -269,9 +193,7 @@
                         data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body py-0">
-                <p id="alertMessage">
-                    이메일이 발송되었습니다.
-                </p>
+                <p id="alertMessage"></p>
             </div>
             <div class="modal-footer flex-column align-items-stretch w-100 gap-2 pb-3 border-top-0">
                 <button type="button" class="btn btn-lg btn-primary" data-bs-dismiss="modal">
@@ -292,10 +214,10 @@ const alertModal = new bootstrap.Modal(sendMailAlertModalDiv);
 
 
 window.onload = function () {
-    const signUpBtn = document.getElementById("signUpButon");
-    signUpBtn.addEventListener('click', function (e) {
+    const loginBtn = document.getElementById("LoginButon");
+    loginBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        checkEmail();
+        login();
     })
 
     //회원가입 완료, 리다이렉트시 가입완료 modal
@@ -306,9 +228,11 @@ window.onload = function () {
     }
 }
 
-checkEmail = function () {
+login = function () {
     const email = document.getElementById("emailInput").value;
+    const password = document.getElementById("passwordInput").value;
     const contextPath = "${pageContext.request.contextPath}";
+    const alertDiv = document.getElementById("signUpAlert");
 
     fetch(contextPath + "/account/check-email", {
         method: "POST",
@@ -322,23 +246,29 @@ checkEmail = function () {
         .then((data) => {
             console.log(data);
             const alertContainer = document.getElementById("signUpAlert");
-            if(data.exists) {
+            if(!data.exists) {
             alertContainer.innerHTML = `
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        이미 가입된 이메일입니다.
+                        가입되어 있지 않는 이메일입니다.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             `
         }else {
-            //회원가입 페이지 이동, 이메일 값 넘겨주기
-            location.href = contextPath + "account/sign-up?email=" + encodeURIComponent(email);
+            //이메일 존재로 로그인 요청
+            submitLogin(contextPath);
         }
-    })
+    }).catch(error => console.error("error: ", error))
 }
 
-goSignUp = function () {
+submitLogin = function (contextPath) {
+    const form = document.querySelector("#modalLogin form");
+    form.action = contextPath + "/account/login";
+    form.method = "POST";
 
-}
+    document.getElementById("emailInput").name = "email";
+    document.getElementById("passwordInput").name = "password";
+    form.submit();
+};
 </script>
 </body>
 </html>

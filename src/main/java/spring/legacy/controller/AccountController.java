@@ -32,8 +32,7 @@ public class AccountController {
     }
 
     @GetMapping("sign-up")
-    public String signUpPage(@RequestParam("email") String email, Model model) {
-        model.addAttribute("email", email);
+    public String signUpPage() {
         return "account/signUp";
     }
 

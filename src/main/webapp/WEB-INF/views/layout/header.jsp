@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -91,3 +92,32 @@
         }
     </style>
 </head>
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <div class="col-md-3 mb-2 mb-md-0">
+        <a href="${pageContext.request.contextPath}/" class="d-inline-flex link-body-emphasis text-decoration-none">
+        </a>
+    </div>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="${pageContext.request.contextPath}/" class="nav-link px-2 link-secondary">Home</a></li>
+        <li><a href="#" class="nav-link px-2">Board</a></li> </ul>
+
+    <div class="col-md-3 d-flex align-items-center justify-content-end pe-4">
+        <sec:authorize access="isAnonymous()">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLogin">
+                Login
+            </button>
+        </sec:authorize>
+
+        <sec:authorize access="isAuthenticated()">
+            <div class="d-flex align-items-center">
+                <span class="me-3 text-muted text-nowrap">
+                    <strong><sec:authentication property="principal.username"/></strong>님
+                </span>
+                <form action="${pageContext.request.contextPath}/account/logout" method="POST" class="m-0">
+                    <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+                </form>
+            </div>
+        </sec:authorize>
+    </div>
+</header>
