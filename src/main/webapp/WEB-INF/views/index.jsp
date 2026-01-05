@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="ko" data-bs-theme="auto">
 
@@ -167,17 +168,22 @@
                 ></button>
             </div>
             <div class="modal-body p-5 pt-0">
-                <form id="loginForm"> <div class="form-floating mb-3">
-                    <input type="email" class="form-control rounded-3" id="emailInput" name="email" placeholder="name@example.com" />
-                    <label for="emailInput">Email address</label>
-                </div>
-                    <div id="signUpAlert"></div> <div class="form-floating mb-3">
+                <form id="loginForm">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control rounded-3" id="emailInput" name="email" placeholder="name@example.com" />
+                        <label for="emailInput">Email address</label>
+                    </div>
+                    <div id="emailAlert"></div>
+                    <div class="form-floating mb-3">
                         <input type="password" class="form-control rounded-3" id="passwordInput" name="password" placeholder="Password" />
                         <label for="passwordInput">Password</label>
                     </div>
+                    <div id="passwordAlert"></div>
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="LoginButon">Login</button>
                 </form>
-                <div><small>아직 회원이 아니신가요? </small><a href="account/sign-up">회원 가입</a></div>
+                <div>
+                    <small>아직 회원이 아니신가요? </small><a href="account/sign-up">회원 가입</a>
+                </div>
             </div>
         </div>
     </div>
@@ -203,15 +209,14 @@
         </div>
     </div>
 </div>
-<script
-        src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"
-        class="astro-vvvwv3sm"
-></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 <script>
 const sendMailAlertModalDiv = document.getElementById("alertModal");
 const alertMessage = document.getElementById("alertMessage");
 const alertModal = new bootstrap.Modal(sendMailAlertModalDiv);
-
+const emailAlertContainer = document.getElementById("emailAlert");
+const passwordAlertContainer = document.getElementById("passwordAlert");
 
 window.onload = function () {
     const loginBtn = document.getElementById("LoginButon");
@@ -229,30 +234,43 @@ window.onload = function () {
 }
 
 login = function () {
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
+    const email = document.getElementById("emailInput").value.trim();
+    const password = document.getElementById("passwordInput").value.trim();
     const contextPath = "${pageContext.request.contextPath}";
-    const alertDiv = document.getElementById("signUpAlert");
+
+    emailAlertContainer.innerHTML = "";
+    passwordAlertContainer.innerHTML = "";
+    let hasError = false;
+
+    if(email === "") {
+        setEmailAlertContainer(MESSAGE.REQUIRED_EMAIL);
+        hasError = true;
+    }
+    if(password === "") {
+        setPasswordAlertContainer(MESSAGE.REQUIRED_PASSWORD);
+        hasError = true;
+    }else if(!CONST.REGEX_PASSWORD.test(password)) {
+        //비밀번호 정규표현식 체크
+        setPasswordAlertContainer(MESSAGE.INVALID_PASSWORD);
+        hasError = true;
+    }
+
+    if(hasError) return;
 
     fetch(contextPath + "/account/check-email", {
-        method: "POST",
+        method: CONST.POST,
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "Accept": "application/json"
+            "Content-Type": CONST.FORM_URLENCODED,
+            "Accept": CONST.JSON
         },
         body: new URLSearchParams({ email })
     })
         .then(res => res.json())
         .then((data) => {
             console.log(data);
-            const alertContainer = document.getElementById("signUpAlert");
+
             if(!data.exists) {
-            alertContainer.innerHTML = `
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        가입되어 있지 않는 이메일입니다.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            `
+                setEmailAlertContainer("가입되어 있지 않는 이메일입니다.");
         }else {
             //이메일 존재로 로그인 요청
             submitLogin(contextPath);
@@ -269,6 +287,24 @@ submitLogin = function (contextPath) {
     document.getElementById("passwordInput").name = "password";
     form.submit();
 };
+
+setEmailAlertContainer = function (message) {
+    emailAlertContainer.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            \${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+}
+
+setPasswordAlertContainer = function (message) {
+    passwordAlertContainer.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            \${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+}
 </script>
 </body>
 </html>

@@ -320,7 +320,8 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
-<script src="${pageContext.request.contextPath}/resources/js/checkout.js" class="astro-vvvwv3sm"></script>
+<script src="${pageContext.request.contextPath}/resources/js/checkout.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 
 <script>
 const contextPath = "${pageContext.request.contextPath}";
@@ -383,10 +384,10 @@ sendEmailCode = function () {
     const email = emailInput.value.trim();
 
     fetch(contextPath + "/account/send-code", {
-        method: "POST",
+        method: CONST.POST,
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "Accept": "application/json"
+            "Content-Type": CONST.FORM_URLENCODED,
+            "Accept": CONST.JSON
         },
         body: new URLSearchParams({ email })
     })
@@ -416,10 +417,10 @@ verifyEmailCode = function () {
     const code = emailCodeInput.value.trim();
 
     fetch(contextPath + "/account/verify-code", {
-        method: "POST",
+        method: CONST.POST,
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "Accept": "application/json"
+            "Content-Type": CONST.FORM_URLENCODED,
+            "Accept": CONST.JSON
         },
         body: new URLSearchParams({ email, code })
     })
