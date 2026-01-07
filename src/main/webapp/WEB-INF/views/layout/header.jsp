@@ -97,11 +97,15 @@
         <a href="${pageContext.request.contextPath}/" class="d-inline-flex link-body-emphasis text-decoration-none">
         </a>
     </div>
-
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="${pageContext.request.contextPath}/" class="nav-link px-2 link-secondary">Home</a></li>
-        <li><a href="#" class="nav-link px-2">Board</a></li> </ul>
-
+        <sec:authorize access="isAnonymous()">
+            <li><a href="javascript:void(0);" onclick="requireLogin()" class="nav-link px-2">올리기</a></li>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+            <li><a href="${pageContext.request.contextPath}/board/write" class="nav-link px-2">올리기</a></li>
+        </sec:authorize>
+    </ul>
     <div class="col-md-3 d-flex align-items-center justify-content-end pe-4">
         <sec:authorize access="isAnonymous()">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLogin">
