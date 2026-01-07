@@ -117,36 +117,64 @@
         ></path>
     </symbol>
 </svg>
-<div class="col-lg-8 mx-auto p-4 py-md-5">
-    <main>
-        <h1 class="text-body-emphasis">사진? 들어가야함</h1>
-        <p class="fs-5 col-md-8">
-            Quickly and easily get started with Bootstrap's compiled,
-            production-ready files with this barebones example featuring some
-            basic HTML and helpful links. Download all our examples to get
-            started.
-        </p>
-        <div class="mb-5">
-            <a href="#" class="btn btn-primary btn-lg px-4"
-            >gogogogogo</a
-            >
-        </div>
-        <hr class="col-3 col-md-2 mb-5" />
-        <div class="row g-5">
-            <div class="col-md-6">
-                <h2 class="text-body-emphasis">Starter projects</h2>
-                <p>
-                    Ready to go beyond the starter template? Check out these open
-                    source projects that you can quickly duplicate to a new GitHub
-                    repository.
-                </p>
+<div class="container-fluid bg-light">
+    <div class="row justify-content-center py-4">
+        <div class="col-md-10 col-lg-6 col-xl-5">
+
+            <div class="card mb-4 border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-0 py-3 d-flex align-items-center">
+                    <img src="${pageContext.request.contextPath}/resources/image/default-profile.png"
+                         class="rounded-circle me-2" width="32" height="32" alt="profile">
+                    <div>
+                        <span class="fw-bold d-block">runner_91</span>
+                        <small class="text-muted">서울 중랑천</small>
+                    </div>
+                    <button class="btn ms-auto border-0"><i class="bi bi-three-dots"></i></button>
+                </div>
+
+                <img src="${pageContext.request.contextPath}/resources/image/running-sample.jpg"
+                     class="card-img-top rounded-0" alt="Running Record">
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="text-center p-2 bg-primary-subtle rounded-3 flex-fill me-2">
+                            <h6 class="mb-0 text-primary fw-bold">5.11 km</h6>
+                            <small class="text-muted">거리</small>
+                        </div>
+                        <div class="text-center p-2 bg-success-subtle rounded-3 flex-fill ms-2">
+                            <h6 class="mb-0 text-success fw-bold">37:15</h6>
+                            <small class="text-muted">총 시간</small>
+                        </div>
+                    </div>
+
+                    <p class="card-text">
+                        <span class="fw-bold me-2">runner_91</span>
+                        오늘 중랑천 코스 최고였어요! 날씨도 딱 좋네요. 🏃‍♂️💨
+                    </p>
+                    <small class="text-muted">3시간 전</small>
+                </div>
+
+                <div class="card-footer bg-white border-top-0 py-3">
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-link p-0 text-dark text-decoration-none">❤️ 12</button>
+                        <button class="btn btn-link p-0 text-dark text-decoration-none">💬 4</button>
+                    </div>
+                </div>
             </div>
+
         </div>
-    </main>
-    <footer class="pt-5 my-5 text-body-secondary border-top">
-        Created by the Bootstrap team &middot; &copy; 2025
-    </footer>
+    </div>
 </div>
+<footer class="pt-5 my-5 text-body-secondary border-top text-center">
+    <div class="container">
+        <p class="mb-1">&copy; 2026 Do-Run-Do-Run. Created by SKY</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#" class="text-decoration-none text-muted">Privacy</a></li>
+            <li class="list-inline-item"><a href="#" class="text-decoration-none text-muted">Terms</a></li>
+            <li class="list-inline-item"><a href="#" class="text-decoration-none text-muted">Support</a></li>
+        </ul>
+    </div>
+</footer>
 <%-- 로그인 모달 --%>
 <div
         class="modal fade"
