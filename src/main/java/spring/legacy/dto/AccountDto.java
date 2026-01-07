@@ -3,6 +3,7 @@ package spring.legacy.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import spring.legacy.enums.AccountRole;
 
 public class AccountDto {
 
@@ -17,6 +18,8 @@ public class AccountDto {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{10,}$",
             message = "비밀번호는 10자 이상이며 대문자, 소문자, 숫자, 특수문자를 모두 포함해야 합니다.")
     private String password;
+
+    private AccountRole role = AccountRole.USER;
 
     public String getName() {
         return name;
@@ -42,12 +45,21 @@ public class AccountDto {
         this.password = password;
     }
 
+    public AccountRole getRole() {
+        return role;
+    }
+
+    public void setRole(AccountRole role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return "AccountDto{" +
+        return "AccountDto {" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

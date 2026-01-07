@@ -119,7 +119,7 @@
 </svg>
 <div class="col-lg-8 mx-auto p-4 py-md-5">
     <main>
-        <h1 class="text-body-emphasis">Get started with Bootstrap</h1>
+        <h1 class="text-body-emphasis">사진? 들어가야함</h1>
         <p class="fs-5 col-md-8">
             Quickly and easily get started with Bootstrap's compiled,
             production-ready files with this barebones example featuring some
