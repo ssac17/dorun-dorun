@@ -103,7 +103,7 @@
             <li><a href="javascript:void(0);" onclick="requireLogin()" class="nav-link px-2">올리기</a></li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-            <li><a href="${pageContext.request.contextPath}/board/write" class="nav-link px-2">올리기</a></li>
+            <li><a href="${pageContext.request.contextPath}/post/write" class="nav-link px-2">올리기</a></li>
         </sec:authorize>
     </ul>
     <div class="col-md-3 d-flex align-items-center justify-content-end pe-4">
