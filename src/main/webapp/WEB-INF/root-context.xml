@@ -9,7 +9,7 @@
          http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
     <!-- 여기 context: 로 -->
-    <context:component-scan base-package="spring.legacy.config"/>
+    <context:component-scan base-package="spring.legacy.config" />
     <context:component-scan base-package="spring.legacy.service" />
 
     <!-- MyBatis mapper 스캔 -->
@@ -36,7 +36,7 @@
     </bean>
 
     <!-- 메일 셋팅 -->
-    <context:property-placeholder location="classpath:mail.properties"/>
+    <context:property-placeholder location="classpath:mail.properties, classpath:application.properties" />
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="${mail.host}"/>
         <property name="port" value="${mail.port}"/>
@@ -52,5 +52,6 @@
             </props>
         </property>
     </bean>
+
 
 </beans>

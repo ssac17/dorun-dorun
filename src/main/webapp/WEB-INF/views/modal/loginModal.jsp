@@ -24,6 +24,12 @@
                         <label for="passwordInput">Password</label>
                     </div>
                     <div id="passwordAlert"></div>
+                    <div class="form-check mb-3 text-start">
+                        <input class="form-check-input" type="checkbox" name="remember-me" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">
+                            로그인 상태 유지 (1일)
+                        </label>
+                    </div>
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="LoginButon">Login</button>
                 </form>
                 <div>

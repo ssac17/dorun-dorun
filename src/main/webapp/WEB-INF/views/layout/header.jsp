@@ -116,7 +116,7 @@
         <sec:authorize access="isAuthenticated()">
             <div class="d-flex align-items-center">
                 <span class="me-3 text-muted text-nowrap">
-                    <strong><sec:authentication property="principal.username"/></strong> 님
+                    <strong><sec:authentication property="principal.name"/></strong> 님
                 </span>
                 <form action="${pageContext.request.contextPath}/account/logout" method="POST" class="m-0">
                     <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
