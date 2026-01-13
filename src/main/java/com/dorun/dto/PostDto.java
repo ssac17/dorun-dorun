@@ -2,9 +2,10 @@ package com.dorun.dto;
 
 import java.sql.Timestamp;
 
-public class RunBoardDto {
+public class PostDto {
     private Long id;
     private Long accountId;
+    private String title;
     private String content;
     private Double distance;
     private Integer duration;
@@ -26,6 +27,14 @@ public class RunBoardDto {
 
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -78,10 +87,10 @@ public class RunBoardDto {
 
     @Override
     public String toString() {
-        return "RunBoardDto" +
-                "{" +
+        return "PostDto {" +
                 "id=" + id +
                 ", accountId=" + accountId +
+                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", distance=" + distance +
                 ", duration=" + duration +

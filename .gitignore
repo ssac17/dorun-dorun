@@ -43,3 +43,4 @@ build/
 
 src/main/webapp/WEB-INF/root-context.xml
 src/main/resources/mail.properties
+src/main/resources/application.properties
