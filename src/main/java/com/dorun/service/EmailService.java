@@ -1,4 +1,4 @@
-package spring.legacy.service;
+package com.dorun.service;
 
 
 import org.slf4j.Logger;

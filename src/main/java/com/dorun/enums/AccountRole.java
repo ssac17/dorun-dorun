@@ -1,4 +1,4 @@
-package spring.legacy.enums;
+package com.dorun.enums;
 
 public enum AccountRole {
     USER, ADMIN

@@ -1,4 +1,4 @@
-package spring.legacy.config;
+package com.dorun.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;

@@ -1,9 +1,9 @@
-package spring.legacy.dto;
+package com.dorun.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import spring.legacy.enums.AccountRole;
+import com.dorun.enums.AccountRole;
 
 public class AccountDto {
 

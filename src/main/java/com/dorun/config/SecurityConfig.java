@@ -1,15 +1,15 @@
-package spring.legacy.config;
+package com.dorun.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+import com.dorun.service.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -18,9 +18,9 @@ public class SecurityConfig {
     @Value("${remember.me.key}")
     private String rememberMeKey;
 
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
@@ -42,7 +42,7 @@ public class SecurityConfig {
                 //로그인 설정
                 .formLogin(form -> form
                         //.loginPage("/account/sign-in") //로그인 페이지 주소
-                        .loginProcessingUrl("/account/login") //from action 주소
+                        .loginProcessingUrl("/login-process") //from action 주소
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/", true) //성공시 메인

@@ -1,7 +1,7 @@
-package spring.legacy.mapper;
+package com.dorun.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import spring.legacy.dto.AccountDto;
+import com.dorun.dto.AccountDto;
 
 @Mapper
 public interface AccountMapper {

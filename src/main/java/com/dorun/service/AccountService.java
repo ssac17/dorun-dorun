@@ -1,11 +1,11 @@
-package spring.legacy.service;
+package com.dorun.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import spring.legacy.dto.AccountDto;
-import spring.legacy.mapper.AccountMapper;
-import spring.legacy.mapper.EmailMapper;
+import com.dorun.dto.AccountDto;
+import com.dorun.mapper.AccountMapper;
+import com.dorun.mapper.EmailMapper;
 
 import java.security.SecureRandom;
 

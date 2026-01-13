@@ -20,7 +20,7 @@
                     </div>
                     <div id="emailAlert"></div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control rounded-3" id="passwordInput" name="password" placeholder="Password" />
+                        <input type="password" class="form-control rounded-3" id="passwordInput" name="password" placeholder="Password" autocomplete="current-password"/>
                         <label for="passwordInput">Password</label>
                     </div>
                     <div id="passwordAlert"></div>

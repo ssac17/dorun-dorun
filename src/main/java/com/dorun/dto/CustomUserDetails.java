@@ -1,4 +1,4 @@
-package spring.legacy.dto;
+package com.dorun.dto;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

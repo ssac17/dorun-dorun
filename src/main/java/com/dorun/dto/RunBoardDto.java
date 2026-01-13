@@ -1,4 +1,4 @@
-package spring.legacy.dto;
+package com.dorun.dto;
 
 import java.sql.Timestamp;
 

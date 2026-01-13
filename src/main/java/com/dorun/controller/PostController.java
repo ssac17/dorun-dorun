@@ -1,4 +1,4 @@
-package spring.legacy.controller;
+package com.dorun.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

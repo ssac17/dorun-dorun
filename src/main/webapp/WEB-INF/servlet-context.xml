@@ -25,5 +25,7 @@
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
 
-    <context:component-scan base-package="spring.legacy.controller" />
+    <context:component-scan base-package="com.dorun.controller" />
+
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
 </beans:beans>

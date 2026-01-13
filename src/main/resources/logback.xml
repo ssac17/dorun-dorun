@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <logger name="spring.legacy" level="DEBUG" />
+    <logger name="com.dorun" level="DEBUG" />
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />

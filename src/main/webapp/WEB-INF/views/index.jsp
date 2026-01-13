@@ -127,7 +127,7 @@ login = function () {
 
 submitLogin = function (contextPath) {
     const form = document.querySelector("#modalLogin form");
-    form.action = contextPath + "/account/login";
+    form.action = contextPath + "/login-process";
     form.method = "POST";
 
     document.getElementById("emailInput").name = "email";

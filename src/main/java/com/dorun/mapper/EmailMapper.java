@@ -1,4 +1,4 @@
-package spring.legacy.mapper;
+package com.dorun.mapper;
 
 import org.apache.ibatis.annotations.Param;
 

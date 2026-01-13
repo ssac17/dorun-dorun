@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example.asynchronous</groupId>
-  <artifactId>spring-legacy-board</artifactId>
+  <artifactId>dorun-dorun</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>spring-legacy-board Maven Webapp</name>
+  <name>dorun-dorun</name>
   <url>http://maven.apache.org</url>
 
   <dependencies>
@@ -130,7 +130,7 @@
       </dependency>
   </dependencies>
   <build>
-    <finalName>spring-legacy-board</finalName>
+    <finalName>dorun-dorun</finalName>
       <plugins>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>

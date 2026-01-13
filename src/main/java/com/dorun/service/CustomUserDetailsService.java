@@ -1,14 +1,13 @@
-package spring.legacy.service;
+package com.dorun.service;
 
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import spring.legacy.dto.AccountDto;
-import spring.legacy.dto.CustomUserDetails;
-import spring.legacy.mapper.AccountMapper;
+import com.dorun.dto.AccountDto;
+import com.dorun.dto.CustomUserDetails;
+import com.dorun.mapper.AccountMapper;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -25,7 +24,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(account == null) {
             throw new UsernameNotFoundException("사용자를 찾을 수 없습니다: " + email);
         }
-
         return new CustomUserDetails(account, AuthorityUtils.createAuthorityList("ROLE_USER"));
     }
 }
