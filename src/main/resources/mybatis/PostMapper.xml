@@ -21,4 +21,18 @@
                now()
         )
     </insert>
+    <insert id="savePhotos">
+        insert into post_photos (
+               post_id,
+               photo_path,
+               created_at
+        ) values
+          <foreach collection="photoList" item="path" separator=",">
+        (
+               #{postId},
+               #{path},
+               now()
+        )
+          </foreach>
+    </insert>
 </mapper>

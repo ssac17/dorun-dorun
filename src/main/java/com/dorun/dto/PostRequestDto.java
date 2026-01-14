@@ -6,18 +6,18 @@ import java.util.List;
 
 public class PostRequestDto {
 
-    private int id;
+    private Long id;
     private String title;
     private List<MultipartFile> photos;
     private Double distance;
     private String duration;
     private String content;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
