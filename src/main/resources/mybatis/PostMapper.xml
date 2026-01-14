@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dorun.mapper.PostMapper">
+    <insert id="savePost" useGeneratedKeys="true" keyProperty="dto.id">
+        insert into posts (
+               email,
+               title,
+               distance,
+               duration,
+               content,
+               reg_date
+        ) values (
+               #{email},
+               #{dto.title},
+               #{dto.distance},
+               #{dto.duration},
+               #{dto.content},
+               now()
+        )
+    </insert>
+</mapper>

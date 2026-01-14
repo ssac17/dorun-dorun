@@ -25,7 +25,7 @@
                         <!-- 사진 -->
                         <div class="mb-4">
                             <label class="form-label fw-semibold">러닝 사진</label>
-                            <input type="file" name="photo" class="form-control rounded-3" id="photoInput" accept="image/*">
+                            <input type="file" name="photos" class="form-control rounded-3" id="photoInput" accept="image/*">
                             <div class="mt-3 text-center">
                                 <img id="photoPreview"
                                      src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='100%25' height='100%25' fill='%23ced4da'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%236c757d'%3E사진을 등록해 주세요%3C/text%3E%3C/svg%3E"
@@ -51,7 +51,7 @@
                         <!-- 소감 -->
                         <div class="mb-4">
                             <label class="form-label fw-semibold">오늘의 소감</label>
-                            <textarea name="content" class="form-control rounded-3" rows="5" placeholder="오늘 운동은 어떠셨나요?"></textarea>
+                            <textarea name="content" id="contentInput" class="form-control rounded-3" rows="5" placeholder="오늘 운동은 어떠셨나요?"></textarea>
                         </div>
 
                         <div class="d-grid gap-2">
@@ -70,6 +70,7 @@
 <%@ include file="../modal/alertModal.jsp" %>
 
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 <script>
 const alertModalDiv = document.getElementById("alertModal");
 const alertMessage = document.getElementById("alertMessage");
@@ -89,30 +90,22 @@ postSubmit = function () {
     const photo = document.getElementById("photoInput").files;
     const distance = document.getElementById("distanceInput").value.trim();
     const duration = document.getElementById("durationInput").value.trim();
+    const content = document.getElementById("contentInput").value.trim();
 
-    if(title === "") {
-        alertMessage.textContent = "운동 이름을 입력해 주세요!";
-        alertModal.show();
-        showFocusAfterModal("titleInput");
-        return;
-    }
-    if(photo.length === 0) {
-        alertMessage.textContent = "사진을 추가해 주세요!";
-        alertModal.show();
-        showFocusAfterModal("photoInput");
-        return;
-    }
-    if(distance === "") {
-        alertMessage.textContent = "달린 거리를 입력해 주세요!";
-        alertModal.show();
-        showFocusAfterModal("distanceInput");
-        return;
-    }
-    if(duration === "") {
-        alertMessage.textContent = "달린 시간을 입력해 주세요!";
-        alertModal.show();
-        showFocusAfterModal("durationInput");
-        return;
+    const validations = [
+        {value: title, message: MESSAGE.EMPTY_TITLE, id: "titleInput"},
+        {value: photo, message: MESSAGE.EMPTY_PHOTO, id: "photoInput"},
+        {value: distance, message: MESSAGE.EMPTY_DISTANCE, id: "distanceInput"},
+        {value: duration, message: MESSAGE.EMPTY_DURATION, id: "durationInput"},
+    ]
+
+    for (const item of validations) {
+        if(!item.value || item.value.length === 0) {
+            alertMessage.textContent = item.message;
+            alertModal.show();
+            showFocusAfterModal(item.id);
+            return;
+        }
     }
 
     document.getElementById("postFrom").submit();
