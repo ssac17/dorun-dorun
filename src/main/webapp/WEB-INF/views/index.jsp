@@ -72,7 +72,7 @@ window.onload = function () {
         login();
     })
 
-    //회원가입 완료, 리다이렉트시 가입완료 modal
+    //리다이렉트시  modal 띄우기
     const message = "${message}";
     if(message) {
         alertMessage.textContent = message;

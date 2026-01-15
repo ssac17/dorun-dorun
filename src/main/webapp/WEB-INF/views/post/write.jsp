@@ -24,14 +24,12 @@
                         </div>
                         <!-- 사진 -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">러닝 사진</label>
-                            <input type="file" name="photos" class="form-control rounded-3" id="photoInput" accept="image/*">
-                            <div class="mt-3 text-center">
-                                <img id="photoPreview"
-                                     src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='100%25' height='100%25' fill='%23ced4da'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='24' fill='%236c757d'%3E사진을 등록해 주세요%3C/text%3E%3C/svg%3E"
-                                     alt="미리보기"
-                                     class="preview-img border"
-                                     style="max-width: 100%; height: auto; border-radius: 12px;">
+                            <label class="form-label fw-semibold">러닝 사진 (최대 4장)></label>
+                            <input type="file" name="photos" class="form-control rounded-3" id="photoInput" accept="image/*" multiple>
+                            <div id="previewContainer" class="row g-2 mt-3">
+                                <div class="col-12 text-center text-muted" id="emptyMessage">
+                                    <small>사진을 등록해 주세요 (최대 4장)</small>
+                                </div>
                             </div>
                         </div>
                         <!-- 거리, 시간 -->
@@ -76,12 +74,46 @@ const alertModalDiv = document.getElementById("alertModal");
 const alertMessage = document.getElementById("alertMessage");
 const alertModal = new bootstrap.Modal(alertModalDiv);
 
-document.getElementById('photoInput').onchange = function (evt) {
-    const [file] = this.files;
-    if (file) {
-        const preview = document.getElementById('photoPreview');
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = 'block';
+document.getElementById("photoInput").onchange = function (event) {
+    const previewContainer = document.getElementById("previewContainer");
+    const files = this.files;
+
+    previewContainer.innerHTML = "";
+
+    //사진 없을때
+    if(files.length === 0) {
+        previewContainer.innerHTML = "<div class='col-12 text-center text-muted'><small>사진을 등록해 주세요 (최대 4장)</small></div>";
+        return;
+    }
+
+    //사진 4장으로 제한
+    if (files.length > 4) {
+        alertMessage.textContent = "사진은 최대 4장까지만 선택 가능합니다.";
+        alertModal.show();
+        this.value = ""; // 파일 선택 취소
+        previewContainer.innerHTML = "<div class='col-12 text-center text-muted'><small>사진을 등록해 주세요 (최대 4장)</small></div>";
+        return;
+    }
+
+    if(files && files.length > 0) {
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const div = document.createElement("div");
+                div.className = "col-6 col-md-3 position-relative";
+                const img = document.createElement("img");
+                img.src = e.target.result;
+                img.className = 'preview-img border shadow-sm';
+                img.style.width = '100%';
+                img.style.height = '120px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '12px';
+
+                div.appendChild(img);
+                previewContainer.appendChild(div);
+            }
+            reader.readAsDataURL(file);
+        })
     }
 }
 

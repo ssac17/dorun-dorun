@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/post")
@@ -26,11 +27,13 @@ public class PostController {
     }
 
     @PostMapping("/write")
-    public String postWrite(@ModelAttribute PostRequestDto dto, Authentication authentication) {
-        System.out.println(dto);
+    public String postWrite(@ModelAttribute PostRequestDto dto, Authentication authentication, RedirectAttributes redirectAttributes) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        System.out.println(userDetails.getUsername());
         boolean saved = postService.savePost(dto, userDetails.getUsername());
-        return "";
+
+        String message = saved ? "기록 되었습니다!" : "저장에 실패했습니다. 다시 시도해 주세요.";
+        redirectAttributes.addFlashAttribute("message", message);
+
+        return saved ? "redirect:/" : "redirect:/post/write";
     }
 }
