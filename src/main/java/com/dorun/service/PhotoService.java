@@ -1,5 +1,6 @@
 package com.dorun.service;
 
+import net.coobird.thumbnailator.Thumbnails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,14 @@ public class PhotoService {
             String savedName = UUID.randomUUID() + "_" + file.getOriginalFilename();
 
             try {
-                file.transferTo(new File(photoDir + savedName));
-                savedPaths.add("/upload/photo/" + savedName);
+                File originalPhoto = new File(photoDir + savedName);
+                file.transferTo(originalPhoto);
+
+                //썸네일
+                File thumbnailPhoto = new File(thumbDir + savedName);
+                Thumbnails.of(originalPhoto).size(600, 600).toFile(thumbnailPhoto);;
+
+                savedPaths.add(savedName);
             } catch (IOException e) {
                 log.error("사진 저장 에러 발생! 파일명: {}, 에러메시지: {}", file.getOriginalFilename(), e.getMessage());
             }
