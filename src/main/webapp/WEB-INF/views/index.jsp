@@ -165,9 +165,6 @@ requireLogin = function () {
     }, {once: true}); //한번 실팽되고 사라짐
 }
 
-// todo: post 뿌리기 해야함
-
-
 </script>
 </body>
 </html>
