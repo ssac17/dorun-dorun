@@ -24,7 +24,7 @@
                         </div>
                         <!-- 사진 -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">러닝 사진 (최대 4장)></label>
+                            <label class="form-label fw-semibold">러닝 사진 (최대 4장)</label>
                             <input type="file" name="photos" class="form-control rounded-3" id="photoInput" accept="image/*" multiple>
                             <div id="previewContainer" class="row g-2 mt-3">
                                 <div class="col-12 text-center text-muted" id="emptyMessage">

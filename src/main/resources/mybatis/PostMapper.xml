@@ -12,10 +12,10 @@
                distance,
                duration,
                content,
-               reg_date
+               created_at
         ) values (
                #{email},
-               #{dto.username},
+               #{username},
                #{dto.title},
                #{dto.distance},
                #{dto.duration},
