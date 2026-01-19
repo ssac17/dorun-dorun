@@ -60,6 +60,10 @@ public class AccountService {
         return "인증되었습니다!";
     }
 
+    public AccountDto findByEmail(String email) {
+        return accountMapper.findByEmail(email);
+    }
+
     public int register(AccountDto accountDto) {
         accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));
         return accountMapper.insertAccount(accountDto);

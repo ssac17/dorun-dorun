@@ -26,7 +26,7 @@
     <!-- 이메일로 가져오기 -->
     <select id="findByEmail" resultType="com.dorun.dto.AccountDto">
         select
-            name, email, password
+            name, email, password, role
         from
             account
         where

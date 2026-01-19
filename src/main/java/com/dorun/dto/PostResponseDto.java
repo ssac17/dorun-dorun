@@ -10,7 +10,7 @@ public class PostResponseDto {
     private Double distance;
     private String duration;
     private String username;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
     private List<String> photos;
 
     public Long getId() {
@@ -61,12 +61,12 @@ public class PostResponseDto {
         this.username = username;
     }
 
-    public LocalDateTime getCreateAt() {
-        return createAt;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public List<String> getPhotos() {
@@ -86,7 +86,7 @@ public class PostResponseDto {
                 ", distance=" + distance +
                 ", duration='" + duration + '\'' +
                 ", username='" + username + '\'' +
-                ", createAt=" + createAt +
+                ", createAt=" + createdAt +
                 ", photos=" + photos +
                 '}';
     }

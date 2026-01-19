@@ -1,6 +1,8 @@
 package com.dorun.service;
 
+import com.dorun.dto.AccountDto;
 import com.dorun.dto.PostRequestDto;
+import com.dorun.dto.PostResponseDto;
 import com.dorun.mapper.PostMapper;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +23,14 @@ public class PostService {
     }
 
     @Transactional
-    public boolean savePost(PostRequestDto dto, String username) {
-        boolean emailExists = accountService.isEmailExists(username);
+    public boolean savePost(PostRequestDto dto, String email) {
+        boolean emailExists = accountService.isEmailExists(email);
         if(!emailExists) {
-            throw new IllegalArgumentException("존재하지 않는 사용자입니다:" + username);
+            throw new IllegalArgumentException("존재하지 않는 사용자입니다:" + email);
         }
-        int result = postMapper.savePost(dto, username);
+        AccountDto findAccount = accountService.findByEmail(email);
+
+        int result = postMapper.savePost(dto, email, findAccount.getName());
 
         List<String> photoPaths = photoService.uploadPhotos(dto.getPhotos());
         if(!photoPaths.isEmpty()) {
@@ -34,5 +38,9 @@ public class PostService {
         }
 
         return result > 0;
+    }
+
+    public List<PostResponseDto> getAllPosts() {
+        return postMapper.selectAllPosts();
     }
 }

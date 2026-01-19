@@ -7,6 +7,7 @@
     <insert id="savePost" useGeneratedKeys="true" keyProperty="dto.id">
         insert into posts (
                email,
+               username,
                title,
                distance,
                duration,
@@ -14,6 +15,7 @@
                reg_date
         ) values (
                #{email},
+               #{dto.username},
                #{dto.title},
                #{dto.distance},
                #{dto.duration},
@@ -43,7 +45,7 @@
         <result property="distance" column="distance" />
         <result property="duration" column="duration" />
         <result property="username" column="username" />
-        <result property="createdAt" column="reg_date" />
+        <result property="createdAt" column="created_at" />
         <collection property="photos" ofType="java.lang.String">
             <result column="photo_path" />
         </collection>
@@ -57,12 +59,11 @@
             p.distance,
             p.duration,
             p.username,
-            p.creaetd_at,
-            ph.file_name,
+            p.created_at,
             ph.photo_path
-        from post p
+        from posts p
         left join post_photos ph
         on p.id = ph.post_id
-        order by p.create_at desc
+        order by p.created_at desc
     </select>
 </mapper>
