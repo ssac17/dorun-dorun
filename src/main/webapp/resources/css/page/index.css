@@ -74,3 +74,9 @@ img {
     image-rendering: -webkit-optimize-contrast;
     transform: translateZ(0);
 }
+
+/* 이미지 슬라이드 전환 속도 조절 */
+.carousel-item {
+    /* 0.6s(기본값)에서 0.3s로 단축 */
+    transition: transform 0.2s ease-in-out !important;
+}

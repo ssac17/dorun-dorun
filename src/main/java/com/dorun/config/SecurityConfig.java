@@ -37,6 +37,7 @@ public class SecurityConfig {
                 //권한 설정
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/account/**", "/resources/**").permitAll()
+                        .requestMatchers("/upload/**").permitAll() //사진경로
                         .anyRequest().authenticated()
                 )
                 //로그인 설정
