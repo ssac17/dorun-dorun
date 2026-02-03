@@ -67,7 +67,7 @@
 
                             <div class="card-body">
                                 <p class="card-text"><span class="fw-bold me-2">${post.username}</span>${post.content}</p>
-                                <small class="text-body-secondary">${post.createdAt}</small>
+                                <small class="text-body-secondary">${post.formattedDate}</small>
                             </div>
                         </div>
                     </c:forEach>

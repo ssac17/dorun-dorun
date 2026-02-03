@@ -1,5 +1,7 @@
 package com.dorun.dto;
 
+import com.dorun.utils.TimeUtils;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,6 +13,7 @@ public class PostResponseDto {
     private String duration;
     private String username;
     private LocalDateTime createdAt;
+    private String formattedDate;
     private List<String> photos;
 
     public Long getId() {
@@ -67,6 +70,17 @@ public class PostResponseDto {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+        if(createdAt != null) {
+            this.formattedDate = TimeUtils.formatRelativeTime(createdAt);
+        }
+    }
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 
     public List<String> getPhotos() {
@@ -86,7 +100,8 @@ public class PostResponseDto {
                 ", distance=" + distance +
                 ", duration='" + duration + '\'' +
                 ", username='" + username + '\'' +
-                ", createAt=" + createdAt +
+                ", createdAt=" + createdAt +
+                ", formattedDate='" + formattedDate + '\'' +
                 ", photos=" + photos +
                 '}';
     }
