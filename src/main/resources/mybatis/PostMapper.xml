@@ -70,4 +70,23 @@
                 on p.email = a.email
         order by p.created_at desc
     </select>
+
+    <select id="findPostsByUserId" resultMap="PostWithPhotosMap">
+        select
+            p.id as post_id,
+            a.id as user_id,
+            p.title,
+            p.content,
+            p.distance,
+            p.duration,
+            p.username,
+            p.created_at,
+            ph.photo_path
+        from posts p
+        left join post_photos ph
+                on p.id = ph.post_id
+        left join account a
+                on p.email = a.email
+        where a.id = #{userId}  order by p.created_at desc
+    </select>
 </mapper>

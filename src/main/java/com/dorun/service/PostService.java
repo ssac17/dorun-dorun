@@ -43,4 +43,11 @@ public class PostService {
     public List<PostResponseDto> getAllPosts() {
         return postMapper.selectAllPosts();
     }
+
+    public List<PostResponseDto> getPostsByUserId(Long userId) {
+        if(userId == null) {
+            throw new IllegalArgumentException("사용자 ID가 유효하지 않습니다.");
+        }
+        return postMapper.findPostsByUserId(userId);
+    }
 }

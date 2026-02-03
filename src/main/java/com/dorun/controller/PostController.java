@@ -31,7 +31,6 @@ public class PostController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         boolean saved = postService.savePost(dto, userDetails.getUsername());
-
         String message = saved ? "기록 되었습니다!" : "저장에 실패했습니다. 다시 시도해 주세요.";
         redirectAttributes.addFlashAttribute("message", message);
 

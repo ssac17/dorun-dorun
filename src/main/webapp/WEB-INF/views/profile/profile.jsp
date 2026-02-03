@@ -67,7 +67,7 @@
 
     <hr class="my-4">
 
-    <div class="row g-3">
+    <div class="row g-1">
         <c:choose>
             <c:when test="${empty posts}">
                 <div class="text-center py-5">
