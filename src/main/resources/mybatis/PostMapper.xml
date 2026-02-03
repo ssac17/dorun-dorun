@@ -40,6 +40,7 @@
 
     <resultMap id="PostWithPhotosMap" type="com.dorun.dto.PostResponseDto">
         <id property="id" column="post_id" />
+        <result property="userId" column="user_id" />
         <result property="title" column="title" />
         <result property="content" column="content" />
         <result property="distance" column="distance" />
@@ -54,6 +55,7 @@
     <select id="selectAllPosts" resultMap="PostWithPhotosMap">
         select
             p.id as post_id,
+            a.id as user_id,
             p.title,
             p.content,
             p.distance,
@@ -63,7 +65,9 @@
             ph.photo_path
         from posts p
         left join post_photos ph
-        on p.id = ph.post_id
+                on p.id = ph.post_id
+        left join account a
+                on p.email = a.email
         order by p.created_at desc
     </select>
 </mapper>

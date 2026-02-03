@@ -29,10 +29,12 @@
                     <c:forEach var="post" items="${posts}">
                         <div class="card mb-4 border-0 shadow-sm rounded-4 mx-auto" style="max-width: 600px;">
                             <div class="card-header border-0 py-3 d-flex align-items-center bg-transparent">
-                                <div class="rounded-circle me-2 bg-secondary-subtle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
-                                    <i class="bi bi-person-fill text-secondary"></i>
-                                </div>
-                                <span class="fw-bold text-body">${post.username}</span>
+                                <a href="${pageContext.request.contextPath}/profile/${post.userId}" class="text-decoration-none d-flex align-items-center">
+                                    <div class="rounded-circle me-2 bg-secondary-subtle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                        <i class="bi bi-person-fill text-secondary"></i>
+                                    </div>
+                                    <span class="fw-bold text-body">${post.username}</span>
+                                </a>
                             </div>
 
                             <div id="carousel-${post.id}" class="carousel slide" data-bs-ride="false">

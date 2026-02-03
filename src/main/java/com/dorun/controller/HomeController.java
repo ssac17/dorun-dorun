@@ -21,7 +21,7 @@ public class HomeController {
     public String index(Model model) {
         List<PostResponseDto> posts = postService.getAllPosts();
         for (PostResponseDto post : posts) {
-            System.out.println(post.getPhotos());
+            System.out.println(post.getUserId());
         }
         model.addAttribute("posts", posts);
         return "index";
