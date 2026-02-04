@@ -112,7 +112,6 @@
                 Login
             </button>
         </sec:authorize>
-
         <sec:authorize access="isAuthenticated()">
             <div class="d-flex align-items-center">
                 <span class="me-3 text-muted text-nowrap">
@@ -125,3 +124,5 @@
         </sec:authorize>
     </div>
 </header>
+
+<%@ include file="theme-toggle.jsp" %>

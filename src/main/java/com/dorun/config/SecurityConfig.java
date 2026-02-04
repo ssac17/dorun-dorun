@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/account/**", "/resources/**").permitAll()
                         .requestMatchers("/upload/**").permitAll() //사진경로
+                        .requestMatchers("/profile/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 //로그인 설정

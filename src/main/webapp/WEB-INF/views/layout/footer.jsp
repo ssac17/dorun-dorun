@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: sky
-  Date: 2026. 1. 7.
-  Time: 오전 11:25
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer class="pt-5 my-5 text-body-secondary border-top text-center">
     <div class="container">
@@ -16,3 +9,10 @@
         </ul>
     </div>
 </footer>
+
+<%@ include file="../modal/alertModal.jsp" %>
+<%@ include file="../modal/loginModal.jsp" %>
+
+
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
+<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>

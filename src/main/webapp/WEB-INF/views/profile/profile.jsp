@@ -49,7 +49,11 @@
         <div class="col-md-8">
             <div class="d-flex align-items-center mb-3">
                 <h2 class="fw-light mb-0 me-3">${user.username}</h2>
-                <a href="#" class="btn btn-outline-secondary btn-sm fw-bold">프로필 편집</a>
+                <sec:authorize access="isAuthenticated()">
+                    <c:if test="${user.id == principal.id}">
+                        <a href="#" class="btn btn-outline-secondary btn-sm fw-bold">프로필 편집</a>
+                    </c:if>
+                </sec:authorize>
             </div>
 
             <div class="d-flex gap-4 mb-3">

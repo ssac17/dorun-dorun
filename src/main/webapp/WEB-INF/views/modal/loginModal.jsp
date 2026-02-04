@@ -33,7 +33,7 @@
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="LoginButon">Login</button>
                 </form>
                 <div>
-                    <small>아직 회원이 아니신가요? </small><a href="account/sign-up">회원 가입</a>
+                    <small>아직 회원이 아니신가요? </small><a href="${pageContext.request.contextPath}/account/sign-up">회원 가입</a>
                 </div>
             </div>
         </div>

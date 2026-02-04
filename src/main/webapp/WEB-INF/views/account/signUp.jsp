@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="ko" data-bs-theme="auto">
 
 <%@ include file="../layout/header.jsp" %>
-<%@ include file="../layout/theme-toggle.jsp" %>
+
 
 
 <body class="bg-body-tertiary">
@@ -132,9 +133,7 @@
 <%@ include file="../layout/footer.jsp"%>
 <%@ include file="../modal/alertModal.jsp" %>
 
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
 <script src="${pageContext.request.contextPath}/resources/js/checkout.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 
 <script>
 const contextPath = "${pageContext.request.contextPath}";
