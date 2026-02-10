@@ -21,6 +21,10 @@ public class AccountDto {
 
     private AccountRole role = AccountRole.USER;
 
+    private String profileImage;
+
+    private String bio;
+
     public String getName() {
         return name;
     }
@@ -53,6 +57,22 @@ public class AccountDto {
         this.role = role;
     }
 
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
     @Override
     public String toString() {
         return "AccountDto {" +
@@ -60,6 +80,8 @@ public class AccountDto {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", profileImage='" + profileImage + '\'' +
+                ", bio='" + bio + '\'' +
                 '}';
     }
 }

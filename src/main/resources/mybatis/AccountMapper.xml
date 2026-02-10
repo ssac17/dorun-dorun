@@ -32,4 +32,24 @@
         where
             email = #{email}
     </select>
+
+    <update id="updateProfile">
+        update
+            account
+        set
+            name = #{name},
+            bio = #{bio},
+            profile_image = #{profileImage}
+        where
+            id = #{id}
+    </update>
+    
+    <select id="findProfileImageById">
+        select
+            profile_iamge
+        from
+            account
+        where
+            id = #{id}
+    </select>
 </mapper>

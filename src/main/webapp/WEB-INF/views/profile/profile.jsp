@@ -51,7 +51,7 @@
                 <h2 class="fw-light mb-0 me-3">${user.username}</h2>
                 <sec:authorize access="isAuthenticated()">
                     <c:if test="${user.id == principal.id}">
-                        <a href="#" class="btn btn-outline-secondary btn-sm fw-bold">프로필 편집</a>
+                        <a href="${pageContext.request.contextPath}/profile/edit" class="btn btn-outline-secondary btn-sm fw-bold">프로필 편집</a>
                     </c:if>
                 </sec:authorize>
             </div>

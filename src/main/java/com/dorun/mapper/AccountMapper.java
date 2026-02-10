@@ -8,4 +8,6 @@ public interface AccountMapper {
     boolean isEmailExists(String email);
     int insertAccount(AccountDto accountDto);
     AccountDto findByEmail(String email);
+    void updateProfile(AccountDto accountDto);
+    String findProfileImageById(Long id);
 }
