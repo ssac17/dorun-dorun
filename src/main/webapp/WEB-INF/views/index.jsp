@@ -85,107 +85,15 @@
 const alertModalDiv = document.getElementById("alertModal");
 const alertMessage = document.getElementById("alertMessage");
 const alertModal = new bootstrap.Modal(alertModalDiv);
-const emailAlertContainer = document.getElementById("emailAlert");
-const passwordAlertContainer = document.getElementById("passwordAlert");
+
 
 window.onload = function () {
-    const loginBtn = document.getElementById("LoginButon");
-    loginBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        login();
-    })
-
     //리다이렉트시 modal 띄우기
     const message = "${message}";
     if(message) {
         alertMessage.textContent = message;
         alertModal.show();
     }
-}
-
-login = function () {
-    const email = document.getElementById("emailInput").value.trim();
-    const password = document.getElementById("passwordInput").value.trim();
-    const contextPath = "${pageContext.request.contextPath}";
-
-    emailAlertContainer.innerHTML = "";
-    passwordAlertContainer.innerHTML = "";
-    let hasError = false;
-
-    if(email === "") {
-        setEmailAlertContainer(MESSAGE.REQUIRED_EMAIL);
-        hasError = true;
-    }
-    if(password === "") {
-        setPasswordAlertContainer(MESSAGE.REQUIRED_PASSWORD);
-        hasError = true;
-    }else if(!CONST.REGEX_PASSWORD.test(password)) {
-        //비밀번호 정규표현식 체크
-        setPasswordAlertContainer(MESSAGE.INVALID_PASSWORD);
-        hasError = true;
-    }
-
-    if(hasError) return;
-
-    fetch(contextPath + "/account/check-email", {
-        method: CONST.POST,
-        headers: {
-            "Content-Type": CONST.FORM_URLENCODED,
-            "Accept": CONST.JSON
-        },
-        body: new URLSearchParams({ email })
-    })
-        .then(res => res.json())
-        .then((data) => {
-            console.log(data);
-
-            if(!data.exists) {
-                setEmailAlertContainer("가입되어 있지 않는 이메일입니다.");
-        }else {
-            //이메일 존재로 로그인 요청
-            submitLogin(contextPath);
-        }
-    }).catch(error => console.error("error: ", error))
-}
-
-submitLogin = function (contextPath) {
-    const form = document.querySelector("#modalLogin form");
-    form.action = contextPath + "/login-process";
-    form.method = "POST";
-
-    document.getElementById("emailInput").name = "email";
-    document.getElementById("passwordInput").name = "password";
-    form.submit();
-};
-
-setEmailAlertContainer = function (message) {
-    emailAlertContainer.innerHTML = `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            \${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    `;
-}
-
-setPasswordAlertContainer = function (message) {
-    passwordAlertContainer.innerHTML = `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            \${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    `;
-}
-
-requireLogin = function () {
-    alertMessage.textContent = MESSAGE.REQUIRED_LOGIN;
-    alertModal.show();
-    alertModalDiv.addEventListener("hidden.bs.modal", function () {
-        const getLoginModal = document.getElementById('modalLogin');
-        if (getLoginModal) {
-            const loginModal = bootstrap.Modal.getOrCreateInstance(getLoginModal);
-            loginModal.show();
-        }
-    }, {once: true}); //한번 실팽되고 사라짐
 }
 
 </script>

@@ -16,4 +16,5 @@ const MESSAGE = {
     EMPTY_PHOTO: "사진을 추가해 주세요!",
     EMPTY_DISTANCE: "달린 거리를 입력해 주세요!",
     EMPTY_DURATION: "달린 시간을 입력해 주세요!",
+    UNREGISTERED_EMAIL: "가입되어 있지 않는 이메일입니다."
 }

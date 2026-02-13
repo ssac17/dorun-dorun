@@ -4,40 +4,7 @@
 <html lang="ko">
 
 <%@ include file="../layout/header.jsp" %>
-<style>
-    .profile-img {
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-    }
-    .post-grid-item {
-        position: relative;
-        aspect-ratio: 1 / 1; /* 정사각형 유지 */
-        overflow: hidden;
-        cursor: pointer;
-    }
-    .post-grid-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: filter 0.3s ease;
-    }
-    .post-grid-item:hover img {
-        filter: brightness(70%); /* 마우스 올리면 살짝 어둡게 */
-    }
-    .post-icons {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        display: none;
-        font-weight: bold;
-    }
-    .post-grid-item:hover .post-icons {
-        display: block; /* 마우스 올리면 아이콘 표시 (나중에 좋아요 수 표시용) */
-    }
-</style>
+<link rel="stylesheet" href="/resources/css/page/profile.css">
 
 <body>
 <div class="container mt-5" style="max-width: 935px;">

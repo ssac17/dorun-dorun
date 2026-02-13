@@ -65,10 +65,7 @@
 </div>
 
 <%@ include file="../layout/footer.jsp" %>
-<%@ include file="../modal/alertModal.jsp" %>
 
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
-<script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
 <script>
 const alertModalDiv = document.getElementById("alertModal");
 const alertMessage = document.getElementById("alertMessage");

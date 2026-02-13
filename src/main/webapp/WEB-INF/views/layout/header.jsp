@@ -125,4 +125,17 @@
     </div>
 </header>
 
+<script>
+requireLogin = function () {
+    alertMessage.textContent = MESSAGE.REQUIRED_LOGIN;
+    alertModal.show();
+    alertModalDiv.addEventListener("hidden.bs.modal", function () {
+        const getLoginModal = document.getElementById('modalLogin');
+        if (getLoginModal) {
+            const loginModal = bootstrap.Modal.getOrCreateInstance(getLoginModal);
+            loginModal.show();
+        }
+    }, {once: true}); //한번 실팽되고 사라짐
+}
+</script>
 <%@ include file="theme-toggle.jsp" %>

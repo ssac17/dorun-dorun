@@ -11,8 +11,6 @@
 </footer>
 
 <%@ include file="../modal/alertModal.jsp" %>
-<%@ include file="../modal/loginModal.jsp" %>
-
-
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm"></script>
 <script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+<%@ include file="../modal/loginModal.jsp" %>

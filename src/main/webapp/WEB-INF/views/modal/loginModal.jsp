@@ -39,3 +39,80 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const loginBtn = document.getElementById("LoginButon");
+    if(loginBtn) {
+        loginBtn.onclick = function (e) {
+            e.preventDefault();
+            login();
+        }
+    }
+});
+
+login = function () {
+    const contextPath = "${pageContext.request.contextPath}";
+    const email = document.getElementById("emailInput").value.trim();
+    const password = document.getElementById("passwordInput").value.trim();
+    const eAlert = document.getElementById("emailAlert");
+    const pAlert = document.getElementById("passwordAlert");
+
+    // 초기화
+    if(eAlert) eAlert.innerHTML = "";
+    if(pAlert) pAlert.innerHTML = "";
+
+    let hasError = false;
+
+    if(email === "") {
+        setAlertContainer(eAlert, MESSAGE.REQUIRED_EMAIL);
+        hasError = true;
+    }
+    if(password === "") {
+        setAlertContainer(pAlert, MESSAGE.REQUIRED_PASSWORD);
+        hasError = true;
+    } else if(!CONST.REGEX_PASSWORD.test(password)) {
+        setAlertContainer(pAlert, MESSAGE.INVALID_PASSWORD);
+        hasError = true;
+    }
+
+    if(hasError) return;
+
+    fetch(contextPath + "/account/check-email", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json"
+        },
+        body: new URLSearchParams({ email })
+    })
+        .then(res => res.json())
+        .then((data) => {
+            if(!data.exists) {
+                setAlertContainer(eAlert, MESSAGE.UNREGISTERED_EMAIL);
+            } else {
+                submitLogin(contextPath);
+            }
+        }).catch(error => console.error("error: ", error))
+}
+
+submitLogin = function (contextPath) {
+    const form = document.querySelector("#modalLogin form");
+    form.action = contextPath + "/login-process";
+    form.method = "POST";
+    document.getElementById("emailInput").name = "email";
+    document.getElementById("passwordInput").name = "password";
+    form.submit();
+}
+
+setAlertContainer = function (container, message) {
+    if(container) {
+        container.innerHTML = `
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            \${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+    }
+}
+</script>
